@@ -6,7 +6,12 @@ const About = () => {
         <Grid>
             <Row>
                 <Col xs={12}>
-                    <p>Placeholder</p>
+                    <Row center="xs">
+                        <div>
+                            <p>Create, vote on and share polls made by you and your friends!
+                            Select a poll or sign in below to get started.</p>
+                        </div>
+                    </Row>
                 </Col>
             </Row>
         </Grid>
