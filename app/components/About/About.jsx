@@ -5,7 +5,7 @@ const About = () => {
     return (
         <Grid>
             <Row>
-                <Col xs={6} md={3}>
+                <Col xs={12}>
                     <p>Placeholder</p>
                 </Col>
             </Row>
