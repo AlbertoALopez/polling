@@ -1,0 +1,32 @@
+@import './components/_all.scss';
+@import '/node_modules/react-grid-layout/css/styles.css';
+@import '/node_modules/react-resizable/css/styles.css';
+@import '_reset.scss';
+
+/* Main styles */
+p {
+    font-family: 'Roboto', sans-serif;
+}
+h1, h1, h3, a {
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Layout styles */
+
+#top-banner {
+    background-color: #00BCD4;
+    height: 50px;
+    width: 100%;
+}
+
+#overlay {
+    position: absolute;
+    padding: 0;
+    margin: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #B2EBF2;
+    z-index: -1;
+}
