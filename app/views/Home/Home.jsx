@@ -3,7 +3,7 @@ import React from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
-import Login from '../Login/Login.jsx';
+import Login from './Login/Login.jsx';
 
 const styles = {
     container: {
@@ -15,7 +15,7 @@ const styles = {
     },
 };
 
-const About = () => {
+const Home = () => {
     return (
         <Grid>
             <Row>
@@ -37,4 +37,4 @@ const About = () => {
     );
 };
 
-export default About;
+export default Home;

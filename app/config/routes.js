@@ -1,14 +1,14 @@
 /* React router config */
 import { IndexRoute, Route, Router, browserHistory } from 'react-router';
 import React from 'react';
-import App from '../components/App/App.jsx';
-import About from '../components/About/About.jsx';
+import App from '../views/App.jsx';
+import Home from '../views/Home/Home.jsx';
 
 
 const routes = (
     <Router history={browserHistory}>
         <Route path="/" component={App}>
-            <IndexRoute component={About} />
+            <IndexRoute component={Home} />
         </Route>
     </Router>
 );
