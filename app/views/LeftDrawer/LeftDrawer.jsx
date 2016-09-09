@@ -20,9 +20,7 @@ export default class LeftDrawer extends React.Component {
     render() {
         return (
             <div><IconButton
-                    onTouchTap={this.handleToggle}
-                    targetOrigin={ {horizontal: 'right', vertical: 'top'} }
-                    anchorOrigin={ {horizontal: 'right', vertical: 'top'} }>
+                    onTouchTap={this.handleToggle}>
                     <NavigationMenu />
                 </IconButton>
                 <Drawer
