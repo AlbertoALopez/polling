@@ -1,11 +1,11 @@
-/* About section react component */
+/* Home section react component */
 import React from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
+import { Link } from 'react-router';
 import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import Login from './Login/Login.jsx';
 import PollList from '../Polls/PollList/PollList.jsx';
-import { Link } from 'react-router';
 
 const styles = {
     container: {

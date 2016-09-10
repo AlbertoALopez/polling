@@ -1,5 +1,6 @@
 import React from 'react';
 import Paper from 'material-ui/Paper';
+import PollList from './PollList/PollList.jsx';
 
 export default class Polls extends React.Component {
     render() {
@@ -12,7 +13,7 @@ export default class Polls extends React.Component {
         };
         return (
             <div>
-                <Paper style={style} zDepth={3} />
+                <PollList />
             </div>
         );
     }

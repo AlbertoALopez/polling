@@ -8,6 +8,7 @@ import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
+import { Link } from 'react-router';
 
 const iconButtonElement = (
     <IconButton
@@ -21,7 +22,7 @@ const iconButtonElement = (
 
 const rightIconMenu = (
     <IconMenu iconButtonElement={iconButtonElement}>
-        <MenuItem>View</MenuItem>
+        <Link to="polls/1"><MenuItem>View</MenuItem></Link>
         <MenuItem>Share</MenuItem>
         <MenuItem>Comment</MenuItem>
     </IconMenu>
