@@ -51,7 +51,7 @@ export default class Login extends React.Component {
                     actions={actions}
                     modal={false}
                     open={this.state.open}
-                    onRequestClose={this.handleClose}
+                    onRequestClose={this.handleClose.bind(this)}
                 >
                     Login to create polls.
                 </Dialog>
