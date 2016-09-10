@@ -2,10 +2,16 @@ import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import ActionHome from 'material-ui/svg-icons/action/home';
 
+const styles = {
+    button: {
+        marginTop: '5px',
+    },
+};
+
 const NavbarTabs = () => (
     <div>
-        <FlatButton label="Home" icon={<ActionHome />} />
-        <FlatButton label="Login" />
+        <FlatButton style={styles.button} label="Home" icon={<ActionHome />} />
+        <FlatButton style={styles.button} label="Login" />
     </div>
 );
 
