@@ -1,3 +1,4 @@
+/* React view that displays a list of selectable polls */
 import React from 'react';
 import Paper from 'material-ui/Paper';
 import PollList from './PollList/PollList.jsx';

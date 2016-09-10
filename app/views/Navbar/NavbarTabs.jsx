@@ -1,6 +1,7 @@
 import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import ActionHome from 'material-ui/svg-icons/action/home';
+import { Link } from 'react-router';
 
 const styles = {
     button: {
@@ -10,8 +11,12 @@ const styles = {
 
 const NavbarTabs = () => (
     <div>
-        <FlatButton style={styles.button} label="Home" icon={<ActionHome />} />
-        <FlatButton style={styles.button} label="Login" />
+        <Link to="/">
+            <FlatButton style={styles.button} label="Home" icon={<ActionHome />} />
+        </Link>
+        <Link to="">
+            <FlatButton style={styles.button} label="Login" />
+        </Link>
     </div>
 );
 

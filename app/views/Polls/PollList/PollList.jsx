@@ -32,7 +32,7 @@ const ListExampleMessages = () => (
     <div>
         <List>
             <Subheader>Today</Subheader>
-            <ListItem
+            <Link to="polls/1"><ListItem
                 rightIconButton={rightIconMenu}
                 primaryText="Poll title"
                 secondaryText={
@@ -41,7 +41,7 @@ const ListExampleMessages = () => (
                     </p>
                 }
                 secondaryTextLines={2}
-            />
+            /></Link>
             <Divider inset={true} />
             <ListItem
                 rightIconButton={rightIconMenu}
