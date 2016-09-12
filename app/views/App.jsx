@@ -12,12 +12,12 @@ class App extends React.Component {
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
                 <div className="app-container">
-                    <div className="navbar container">
+                    <section className="navbar-container">
                         <NavBar />
-                    </div>
-                    <div className="container">
+                    </section>
+                    <section className="props-container">
                         {this.props.children}
-                    </div>
+                    </section>
                 </div>
             </MuiThemeProvider>
         )

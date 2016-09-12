@@ -3,6 +3,7 @@ import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import './_Login.scss';
 
 export default class Login extends React.Component {
     constructor() {
@@ -34,16 +35,11 @@ export default class Login extends React.Component {
                 onTouchTap={this.handleClose.bind(this)}
             />,
         ];
-        const styles = {
-            button: {
-                margin: '10px',
-            },
-        };
 
         return (
             <div>
                 <RaisedButton
-                    style={styles.button}
+                    className="signin-button"
                     label="Sign in"
                     onClick={this.handleOpen.bind(this)}
                     labelPosition="before" />

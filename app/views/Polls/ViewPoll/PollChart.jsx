@@ -1,6 +1,7 @@
 /* Chart component for an individual poll */
 import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
+import './_PollChart.scss';
 
 
 const chartData = {
@@ -15,17 +16,9 @@ const chartData = {
 
 export default class PollChart extends React.Component {
     render() {
-        const styles = {
-            graphContainer: {
-                padding: '15px',
-            },
-            title: {
-                padding: '20px',
-            }
-        };
         return (
-            <div className="graphContainer" style={styles.graphContainer}>
-                <span style={styles.title}><h3>Poll question</h3></span>
+            <div className="graph-container">
+                <span className="graph-title"><h3>Poll question</h3></span>
                 <Doughnut
                     data={chartData}
                 />

@@ -3,19 +3,14 @@ import React from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import PollChart from './PollChart.jsx';
 import VotingBox from './VotingBox.jsx';
-
-const styles = {
-    container: {
-        padding: '20px',
-    },
-};
+import './_ViewPoll.scss';
 
 const ViewPoll = () => (
     <Grid>
         <Row >
             <Col xs={12}>
                 <PollChart />
-                <div style={styles.container}>
+                <div className="voting-container">
                     <p>Vote on this poll</p>
                     <VotingBox />
                 </div>

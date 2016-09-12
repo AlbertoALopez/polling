@@ -6,22 +6,8 @@ import Paper from 'material-ui/Paper';
 import RaisedButton from 'material-ui/RaisedButton';
 import Login from './Login/Login.jsx';
 import PollList from '../Polls/PollList/PollList.jsx';
+import './_Home.scss';
 
-const styles = {
-    container: {
-        paddingTop: '20%',
-    },
-    paper: {
-        display: 'inline-block',
-        padding: '20px',
-    },
-    listContainer: {
-        marginTop: '100px',
-    },
-    linkButton: {
-        margin: '10px',
-    }
-};
 
 const Home = () => {
     return (
@@ -30,16 +16,16 @@ const Home = () => {
                 <Col xs={12}>
                     <Row center="xs">
                         <Col xs={8}>
-                            <div style={styles.container}>
-                                <Paper zDepth={4} style={styles.paper}>
-                                    <span style={styles.text}><p>Create, vote on and share polls made by you and your friends!
+                            <div className="container">
+                                <Paper zDepth={4} className="paper">
+                                    <span className="text"><p>Create, vote on and share polls made by you and your friends!
                                     </p><br /><p>Select a poll below or sign in to create your own.</p></span>
                                     <Row center="xs">
                                         <Login />
                                         <Link to="/polls">
                                             <RaisedButton
                                                 label="See all polls"
-                                                style={styles.linkButton}
+                                                className="linkButton"
                                             />
                                         </Link>
                                     </Row>
@@ -47,7 +33,7 @@ const Home = () => {
                             </div>
                         </Col>
                     </Row>
-                    <div className="list-container" style={styles.listContainer}>
+                    <div className="list-container" className="listContainer">
                         <PollList />
                     </div>
                 </Col>
