@@ -2,7 +2,7 @@ const path = require('path');
 const Sequelize = require('sequelize');
 
 const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.json')[env];
+const config = require(path.join(__dirname, '/../config/config.json'))[env];
 let sequelize = null;
 
 if (!global.hasOwnProperty('db')) {
@@ -28,15 +28,10 @@ if (!global.hasOwnProperty('db')) {
         sequelize,
         User: sequelize.import(path.join(__dirname, '/user')),
         Poll: sequelize.import(path.join(__dirname, '/poll')),
-            // add your other models here
     };
 }
 
-Object.keys(db).forEach(function(modelName) {
-    if (db[modelName].associate) {
-        db[modelName].associate(db);
-    }
-});
+/* Associations */
+global.db.User.hasMany(global.db.Poll);
 
-
-module.exports = db;
+module.exports = global.db;
