@@ -31,13 +31,19 @@
     "classnames": "^2.2.5",
     "flexboxgrid": "^6.3.1",
     "material-ui": "^0.15.4",
+    "pg": "6.1.0",
+    "pg-hstore": "^2.3.2",
+    "re-base": "^2.1.0",
     "react": "^15.3.1",
     "react-chartjs-2": "^1.2.4",
     "react-dom": "^15.3.1",
     "react-flexbox-grid": "^0.10.2",
     "react-router": "^2.7.0",
     "react-tap-event-plugin": "^1.0.0",
-    "request": "^2.74.0"
+    "request": "^2.74.0",
+    "sequelize": "^3.24.3",
+    "sequelize-cli": "^2.4.0",
+    "sequelize-heroku": "^1.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.0.3",

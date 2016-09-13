@@ -6,17 +6,17 @@ var StatsPlugin = require('stats-webpack-plugin');
 
 module.exports = {
   entry: [
-    path.join(__dirname, 'app/main.js')
+    path.join(__dirname, 'client/app/main.js')
   ],
   output: {
-    path: path.join(__dirname, '/dist/'),
+    path: path.join(__dirname, 'client/dist/'),
     filename: '[name]-[hash].min.js',
     publicPath: '/'
   },
   plugins: [
     new webpack.optimize.OccurenceOrderPlugin(),
     new HtmlWebpackPlugin({
-      template: 'app/index.tpl.html',
+      template: 'client/app/index.tpl.html',
       inject: 'body',
       filename: 'index.html'
     }),

@@ -4,12 +4,15 @@ const express = require('express');
 const webpack = require('webpack');
 const webpackMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
-const config = require('./webpack.config.js');
+const config = require('../webpack.config.js');
 const request = require('request');
+const pg = require('pg');
 
 const isDeveloping = process.env.NODE_ENV !== 'production';
 const port = isDeveloping ? 3000 : process.env.PORT;
 const app = express();
+
+pg.defaults.ssl = true;
 
 if (isDeveloping) {
     const compiler = webpack(config);
@@ -29,13 +32,13 @@ if (isDeveloping) {
     app.use(middleware);
     app.use(webpackHotMiddleware(compiler));
     app.get('*', function response(req, res) {
-        res.write(middleware.fileSystem.readFileSync(path.join(__dirname, 'dist/index.html')));
+        res.write(middleware.fileSystem.readFileSync(path.join(__dirname, '../client/dist/index.html')));
         res.end();
     });
 } else {
     app.use(express.static(__dirname + '/dist'));
     app.get('*', function response(req, res) {
-        res.sendFile(path.join(__dirname, 'dist/index.html'));
+        res.sendFile(path.join(__dirname, '../client/dist/index.html'));
     });
 }
 
