@@ -12,6 +12,7 @@ if (!global.hasOwnProperty('db')) {
             dialect: 'postgres',
             protocol: 'postgres',
             logging: true,
+            use_env_variable: 'DATABASE_URL',
             dialectOptions: {
                 ssl: true,
             },

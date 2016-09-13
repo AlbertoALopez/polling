@@ -1,6 +1,14 @@
 /* ORM model for a poll */
-module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('Poll', {
+module.exports = (sequelize, DataTypes) => {
+    const Poll = sequelize.define('Poll', {
         question: DataTypes.STRING,
+    }, {
+        classMethods: {
+            associate(models) {
+                Poll.belongsTo(models.user);
+            },
+        },
     });
+
+    return Poll;
 };
