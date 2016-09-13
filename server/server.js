@@ -1,18 +1,17 @@
 /* eslint no-console: 0 */
-const path = require('path');
-const express = require('express');
-const webpack = require('webpack');
-const webpackMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
-const config = require('../webpack.config.js');
-const request = require('request');
-const pg = require('pg');
+const path                  = require('path');
+const express               = require('express');
+const webpack               = require('webpack');
+const webpackMiddleware     = require('webpack-dev-middleware');
+const webpackHotMiddleware  = require('webpack-hot-middleware');
+const config                = require('../webpack.config.js');
+const request               = require('request');
+const db                    = require('./models');
 
 const isDeveloping = process.env.NODE_ENV !== 'production';
 const port = isDeveloping ? 3000 : process.env.PORT;
 const app = express();
 
-pg.defaults.ssl = true;
 
 if (isDeveloping) {
     const compiler = webpack(config);
@@ -42,9 +41,13 @@ if (isDeveloping) {
     });
 }
 
-app.listen(port, '0.0.0.0', function onStart(err) {
-    if (err) {
-        console.log(err);
-    }
-    console.info('==> 🌎 Listening on port %s. Open up http://0.0.0.0:%s/ in your browser.', port, port);
+
+
+db.sequelize.sync().then(() => {
+    app.listen(port, '0.0.0.0', (err) => {
+        if (err) {
+            console.log(err);
+        }
+        console.info('==> 🌎 Listening on port %s. Open up http://0.0.0.0:%s/ in your browser.', port, port);
+    });
 });
