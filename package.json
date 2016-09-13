@@ -27,6 +27,7 @@
   "dependencies": {
     "auth0-lock": "^10.2.2",
     "babel-cli": "^6.4.0",
+    "body-parser": "^1.15.2",
     "chart.js": "^2.2.2",
     "classnames": "^2.2.5",
     "flexboxgrid": "^6.3.1",

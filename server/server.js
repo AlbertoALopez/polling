@@ -8,10 +8,15 @@ const config                = require('../webpack.config.js');
 const request               = require('request');
 const db                    = require('./models');
 const routes                = require('./routes/index');
+const bodyParser            = require('body-parser');
 
 const isDeveloping = process.env.NODE_ENV !== 'production';
 const port = isDeveloping ? 3000 : process.env.PORT;
 const app = express();
+
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 
 // Development and production config, serves react SPA
 if (isDeveloping) {
