@@ -50,6 +50,7 @@ if (isDeveloping) {
 // Routes for rest api
 app.use('/', routes);
 
+// Sync postgres db models and then start server
 db.sequelize.sync().then(() => {
     app.listen(port, '0.0.0.0', (err) => {
         if (err) {

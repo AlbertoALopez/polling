@@ -49,12 +49,11 @@ router.get('/api/poll/:id', (req, res) => {
 
 // Create new poll
 router.post('/api/polls', (req, res) => {
-    // models.Poll.create({
-    //     question: req.body.question,
-    // }).then((poll) => {
-    //     res.json(poll);
-    // });
-    console.log(req.body);
+    models.Poll.create({
+        question: req.body.question,
+    }).then((poll) => {
+        res.json(poll);
+    });
 });
 
 // Update poll
