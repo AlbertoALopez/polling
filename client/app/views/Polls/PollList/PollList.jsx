@@ -52,17 +52,19 @@ class PollList extends React.Component {
             });
     }
     render() {
-        console.log(this.state.polls);
         const polls = this.state.polls.map((poll, index) => {
             return (
-                <ListItem key={poll.id}
-                    primaryText={poll.id}
-                    secondaryText={
-                        <p>
-                            { poll.question }
-                        </p>
-                    }
-                />
+                <Link to={`/polls/${poll.id}`} key={poll.id}>
+                    <ListItem
+                        key={poll.id}
+                        primaryText={poll.id}
+                        secondaryText={
+                            <p>
+                                { poll.question }
+                            </p>
+                        }
+                    />
+                </Link>
             );
         });
         return (
