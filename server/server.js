@@ -5,7 +5,6 @@ const webpack               = require('webpack');
 const webpackMiddleware     = require('webpack-dev-middleware');
 const webpackHotMiddleware  = require('webpack-hot-middleware');
 const config                = require('../webpack.config.js');
-const request               = require('request');
 const db                    = require('./models');
 const routes                = require('./routes/index');
 const bodyParser            = require('body-parser');

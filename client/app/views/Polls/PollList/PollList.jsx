@@ -9,6 +9,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import { Link } from 'react-router';
+import axios from 'axios';
 
 const iconButtonElement = (
     <IconButton
@@ -28,55 +29,55 @@ const rightIconMenu = (
     </IconMenu>
 );
 
-const ListExampleMessages = () => (
-    <div>
-        <List>
-            <Subheader>Today</Subheader>
-            <Link to="polls/1"><ListItem
-                rightIconButton={rightIconMenu}
-                primaryText="Poll title"
-                secondaryText={
-                    <p>
-                        <span style={{ color: darkBlack }}>Poll question here</span>
-                    </p>
-                }
-                secondaryTextLines={2}
-            /></Link>
-            <Divider inset={true} />
-            <ListItem
-                rightIconButton={rightIconMenu}
-                primaryText="Poll placeholder"
-                secondaryText={
-                    <p>
-                        <span style={{ color: darkBlack }}>Poll question here</span>
-                    </p>
-                }
-                secondaryTextLines={2}
-            />
-            <Divider inset={true} />
-            <ListItem
-                rightIconButton={rightIconMenu}
-                primaryText="Poll placeholder"
-                secondaryText={
-                    <p>
-                        <span style={{ color: darkBlack }}>Poll question here</span>
-                    </p>
-                }
-                secondaryTextLines={2}
-            />
-            <Divider inset={true} />
-            <ListItem
-                rightIconButton={rightIconMenu}
-                primaryText="Poll placeholder"
-                secondaryText={
-                    <p>
-                        <span style={{ color: darkBlack }}>Poll question here</span>
-                    </p>
-                }
-                secondaryTextLines={2}
-            />
-        </List>
-    </div>
-);
+class PollList extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            polls: [],
+        };
+    }
+    componentWillMount() {
+        this.init();
+    }
+    init() {
+        const that = this;
+        axios.get('/api/polls')
+            .then((response) => {
+                that.setState({
+                    polls: response.data,
+                });
+            })
+            .catch((error) => {
+                console.log(`There was an error:\n${error}`);
+            });
+    }
+    render() {
+        console.log(this.state.polls);
+        const polls = this.state.polls.map((poll, index) => {
+            return (
+                <ListItem key={poll.id}
+                    primaryText={poll.id}
+                    secondaryText={
+                        <p>
+                            { poll.question }
+                        </p>
+                    }
+                />
+            );
+        });
+        return (
+            <div>
+                <List>
+                    <Subheader>Polls</Subheader>
+                    {polls}
+                </List>
+            </div>
+        );
+    }
+}
 
-export default ListExampleMessages;
+PollList.propTypes = {
+    polls: React.PropTypes.array.isRequired,
+};
+
+export default PollList;

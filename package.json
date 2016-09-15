@@ -26,6 +26,7 @@
   },
   "dependencies": {
     "auth0-lock": "^10.2.2",
+    "axios": "^0.14.0",
     "babel-cli": "^6.4.0",
     "body-parser": "^1.15.2",
     "chart.js": "^2.2.2",
@@ -41,7 +42,6 @@
     "react-flexbox-grid": "^0.10.2",
     "react-router": "^2.7.0",
     "react-tap-event-plugin": "^1.0.0",
-    "request": "^2.74.0",
     "sequelize": "^3.24.3",
     "sequelize-cli": "^2.4.0"
   },
