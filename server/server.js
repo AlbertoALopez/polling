@@ -8,16 +8,32 @@ const config                = require('../webpack.config.js');
 const db                    = require('./models');
 const routes                = require('./routes/index');
 const bodyParser            = require('body-parser');
+const session               = require('express-session');
+const passport              = require('passport');
 
 const isDeveloping = process.env.NODE_ENV !== 'production';
 const port = isDeveloping ? 3000 : process.env.PORT;
 const app = express();
 
+// Enable body parser
 app.use(bodyParser.urlencoded({
     extended: false
 }));
 
-// Development and production config, serves react SPA
+// Enable sessions
+app.use(session({
+    secret: 'keyboard cat',
+    saveUninitialized: false,
+    resave: false,
+    cookie: {
+        maxAge: 60000
+    }
+}));
+// Initialize passport
+app.use(passport.initialize());
+app.use(passport.session());
+
+// Development and production config for react SPA
 if (isDeveloping) {
     const compiler = webpack(config);
     const middleware = webpackMiddleware(compiler, {
@@ -53,7 +69,7 @@ app.use('/', routes);
 db.sequelize.sync().then(() => {
     app.listen(port, '0.0.0.0', (err) => {
         if (err) {
-            console.log(err);
+            console.log(`There was an error:\n${err}`);
         }
         console.info('==> 🌎 Listening on port %s. Open up http://0.0.0.0:%s/ in your browser.', port, port);
     });

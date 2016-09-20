@@ -3,9 +3,10 @@ import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
+import { withRouter } from 'react-router';
 import './_Login.scss';
 
-export default class Login extends React.Component {
+class Login extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -22,17 +23,20 @@ export default class Login extends React.Component {
             open: true,
         });
     }
+    handleLogin() {
+        window.open('/auth/google');
+    }
     render() {
         const actions = [
+                <FlatButton
+                    label="Cancel"
+                    primary={true}
+                    onTouchTap={this.handleClose.bind(this)}
+                />,
             <FlatButton
-                label="Cancel"
+                label="Login"
                 primary={true}
-                onTouchTap={this.handleClose.bind(this)}
-            />,
-            <FlatButton
-                label="Submit"
-                primary={true}
-                onTouchTap={this.handleClose.bind(this)}
+                onTouchTap={this.handleLogin.bind(this)}
             />,
         ];
 
@@ -40,18 +44,25 @@ export default class Login extends React.Component {
             <div>
                 <RaisedButton
                     className="signin-button"
-                    label="Sign in"
+                    label="Login to create polls"
                     onClick={this.handleOpen.bind(this)}
-                    labelPosition="before" />
+                    labelPosition="before"
+                />
                 <Dialog
                     actions={actions}
                     modal={false}
                     open={this.state.open}
                     onRequestClose={this.handleClose.bind(this)}
                 >
-                    Login to create polls.
+                    Login with Google.
                 </Dialog>
             </div>
         );
     }
 }
+
+Login.propTypes = {
+    router: React.PropTypes.object.isRequired,
+};
+
+export default withRouter(Login);

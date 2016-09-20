@@ -1,11 +1,50 @@
 const express = require('express');
-const router = new express.Router();
 const models = require('../models/index');
+const passport = require('passport');
+const token = require('../config/token.json');
+const GoogleStrategy = require('passport-google-oauth2').Strategy;
 
-// Middleware
-router.use((req, res, next) => {
-    next();
+const router = new express.Router();
+
+/* Passport.js config and pertinent routes */
+
+// Passport serialization for session management
+passport.serializeUser((user, cb) => {
+    cb(null, user);
 });
+
+passport.deserializeUser((user, cb) => {
+    cb(null, user);
+});
+
+// Configure passport
+passport.use(new GoogleStrategy({
+    clientID: token.clientID,
+    clientSecret: token.client_secret,
+    callbackURL: 'http://127.0.0.1:3000/auth/google/callback',
+    passReqToCallback: true,
+},
+(requestToken, accessToken, refreshToken, profile, done) => {
+    process.nextTick(() => {
+        console.log(profile);
+        return done(null, profile);
+    });
+}));
+
+router.get('/auth/google',
+    passport.authenticate('google', {
+        scope: 'profile',
+    })
+);
+
+router.get('/auth/google/callback',
+    passport.authenticate('google', {
+        failureRedirect: '/login/failure',
+        successRedirect: '/',
+    })
+);
+
+/* REST api */
 
 // Get all users
 router.get('/api/users', (req, res) => {
@@ -24,8 +63,6 @@ router.get('/api/user/:id', (req, res) => {
         res.json(user);
     });
 });
-
-// Create user TODO: connect passport.js
 
 // Get all polls
 router.get('/api/polls', (req, res) => {

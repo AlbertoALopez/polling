@@ -5,4 +5,5 @@ dist
 coverage
 .idea
 npm-debug-log
+token.json
 secret.js
