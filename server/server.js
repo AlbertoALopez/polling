@@ -8,7 +8,7 @@ const config                = require('../webpack.config.js');
 const db                    = require('./models');
 const routes                = require('./routes/index');
 const bodyParser            = require('body-parser');
-const session               = require('express-session');
+const session               = require('cookie-session');
 const passport              = require('passport');
 
 const isDeveloping = process.env.NODE_ENV !== 'production';
@@ -22,13 +22,14 @@ app.use(bodyParser.urlencoded({
 
 // Enable sessions
 app.use(session({
-    secret: 'keyboard cat',
-    saveUninitialized: false,
-    resave: false,
+    name: 'session',
+    signed: false,
     cookie: {
-        maxAge: 60000
+        maxAge: 360000 * 14 * 24
     }
 }));
+
+
 // Initialize passport
 app.use(passport.initialize());
 app.use(passport.session());

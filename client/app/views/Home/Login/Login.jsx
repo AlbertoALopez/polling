@@ -24,7 +24,7 @@ class Login extends React.Component {
         });
     }
     handleLogin() {
-        window.open('/auth/google');
+        window.location = '/auth/google';
     }
     render() {
         const actions = [

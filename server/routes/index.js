@@ -9,12 +9,14 @@ const router = new express.Router();
 /* Passport.js config and pertinent routes */
 
 // Passport serialization for session management
-passport.serializeUser((user, cb) => {
-    cb(null, user);
+passport.serializeUser((user, done) => {
+    done(null, {
+        userId: user.id,
+    });
 });
 
-passport.deserializeUser((user, cb) => {
-    cb(null, user);
+passport.deserializeUser((user, done) => {
+    done(null, user);
 });
 
 // Configure passport
@@ -24,10 +26,27 @@ passport.use(new GoogleStrategy({
     callbackURL: 'http://127.0.0.1:3000/auth/google/callback',
     passReqToCallback: true,
 },
-(requestToken, accessToken, refreshToken, profile, done) => {
+(requestToken, accessToken, refreshToken, googleProfile, done) => {
     process.nextTick(() => {
-        console.log(profile);
-        return done(null, profile);
+        models.User.find({
+            where: {
+                UserId: googleProfile.id,
+            },
+        }).then((user) => {
+            if (!user) {
+                models.User.create({
+                    username: googleProfile.displayName,
+                    UserId: googleProfile.id,
+                }).then((newUser) => {
+                    return done(null, newUser);
+                }).catch((error) => {
+                    console.log(`Error creating user:\n${error}`);
+                });
+            }
+            return done(null, user);
+        }).catch((error) => {
+            console.log(`Error retrieving user:\n${error}`);
+        });
     });
 }));
 
@@ -40,8 +59,22 @@ router.get('/auth/google',
 router.get('/auth/google/callback',
     passport.authenticate('google', {
         failureRedirect: '/login/failure',
-        successRedirect: '/',
-    })
+    }),
+    (req, res, next) => {
+        const username = req.user.dataValues.username;
+        const userId = req.user.dataValues.UserId;
+        res.cookie('username', username, {
+            expires: new Date(Date.now() * 60 * 60 * 24 * 7),
+            encode: String,
+        });
+        res.cookie('userId', userId, {
+            expires: new Date(Date.now() * 60 * 60 * 24 * 7),
+        });
+        res.cookie('loggedIn', true, {
+            expires: new Date(Date.now() * 60 * 60 * 24 * 7),
+        })
+        res.redirect('/');
+    }
 );
 
 /* REST api */
