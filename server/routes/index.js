@@ -6,12 +6,13 @@ const GoogleStrategy = require('passport-google-oauth2').Strategy;
 
 const router = new express.Router();
 
-/* Passport.js config and pertinent routes */
+/* Passport.js config and authentication routes */
 
 // Passport serialization for session management
 passport.serializeUser((user, done) => {
     done(null, {
-        userId: user.id,
+        userName: user.username,
+        loggedIn: true,
     });
 });
 
@@ -60,22 +61,20 @@ router.get('/auth/google/callback',
     passport.authenticate('google', {
         failureRedirect: '/login/failure',
     }),
-    (req, res, next) => {
-        const username = req.user.dataValues.username;
-        const userId = req.user.dataValues.UserId;
-        res.cookie('username', username, {
-            expires: new Date(Date.now() * 60 * 60 * 24 * 7),
-            encode: String,
-        });
-        res.cookie('userId', userId, {
-            expires: new Date(Date.now() * 60 * 60 * 24 * 7),
-        });
-        res.cookie('loggedIn', true, {
-            expires: new Date(Date.now() * 60 * 60 * 24 * 7),
-        })
+    (req, res) => {
         res.redirect('/');
     }
 );
+
+// Server endpoint that is pinged when app initializes
+router.get('/login', (req, res) => {
+    if (!req.isAuthenticated()) {
+        res.json({ loggedIn: 'false' });
+    }
+    else {
+        res.json(req.user);
+    }
+});
 
 /* REST api */
 
