@@ -11,24 +11,27 @@ injectTapEventPlugin();
 class App extends React.Component {
     constructor() {
         super();
+        this.state = {
+            loggedIn: false,
+            userName: '',
+        };
+    }
+    componentDidMount() {
         axios.get('/login')
         .then((response) => {
             if (!response.data.loggedIn) {
-                this.state = {
+                this.setState({
                     loggedIn: false,
                     userName: '',
-                };
+                });
             }
             else {
-                this.state = {
+                this.setState({
                     loggedIn: response.data.loggedIn,
                     userName: response.data.userName,
-                };
+                });
             }
         });
-    }
-    componentDidMount() {
-
     }
     render() {
         return (
@@ -38,11 +41,14 @@ class App extends React.Component {
                         <NavBar />
                     </section>
                     <section className="props-container">
-                        {this.props.children}
+                        {React.cloneElement(this.props.children, {
+                            loggedIn: this.state.loggedIn,
+                            userName: this.state.userName,
+                        })}
                     </section>
                 </div>
             </MuiThemeProvider>
-        )
+        );
     }
 }
 
