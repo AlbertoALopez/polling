@@ -9,7 +9,7 @@ import PollList from '../Polls/PollList/PollList.jsx';
 import './_Home.scss';
 
 
-const Home = () => {
+const Home = (props) => {
     return (
         <Grid>
             <Row>
@@ -21,7 +21,9 @@ const Home = () => {
                                     <span className="text"><p>Create, vote on and share polls made by you and your friends!
                                     </p><br /><p>Select a poll below or sign in to create your own.</p></span>
                                     <Row center="xs">
-                                        <Login />
+                                        <Login
+                                            loggedIn={props.loggedIn}
+                                        />
                                         <Link to="/polls">
                                             <RaisedButton
                                                 label="See all polls"
@@ -40,6 +42,11 @@ const Home = () => {
             </Row>
         </Grid>
     );
+};
+
+Home.propTypes = {
+    loggedIn: React.PropTypes.bool,
+    userName: React.PropTypes.string,
 };
 
 export default Home;

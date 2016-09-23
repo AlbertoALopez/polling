@@ -17,7 +17,7 @@ class Navbar extends React.Component {
                 onTitleTouchTap={this.handleTouchTap.bind(this)}
                 title={<span className="navbar-title">Polling</span>}
                 iconElementLeft={<LeftDrawer />}
-                iconElementRight={<NavbarTabs />}
+                iconElementRight={<NavbarTabs loggedIn={this.props.loggedIn}/>}
             />
         );
     }
@@ -25,6 +25,7 @@ class Navbar extends React.Component {
 
 Navbar.propTypes = {
     router: React.PropTypes.object.isRequired,
+    loggedIn: React.PropTypes.bool,
 };
 
 export default withRouter(Navbar);

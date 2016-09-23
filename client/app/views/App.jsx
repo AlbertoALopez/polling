@@ -19,11 +19,9 @@ class App extends React.Component {
     componentDidMount() {
         axios.get('/login')
         .then((response) => {
-            if (!response.data.loggedIn) {
-                this.setState({
-                    loggedIn: false,
-                    userName: '',
-                });
+            if (!response) {
+                console.log(`Error could not load user data`);
+                return;
             }
             else {
                 this.setState({
@@ -38,7 +36,10 @@ class App extends React.Component {
             <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
                 <div className="app-container">
                     <section className="navbar-container">
-                        <NavBar />
+                        <NavBar
+                            loggedIn={this.state.loggedIn}
+                            userName={this.state.userName}
+                        />
                     </section>
                     <section className="props-container">
                         {React.cloneElement(this.props.children, {

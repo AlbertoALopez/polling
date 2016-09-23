@@ -1,68 +1,34 @@
 /* Login dialog react component */
 import React from 'react';
-import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
-import { withRouter } from 'react-router';
+import LoginModal from './LoginModal.jsx';
 import './_Login.scss';
 
-class Login extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            open: false,
-        };
-    }
-    handleClose() {
-        this.setState({
-            open: false,
-        });
-    }
-    handleOpen() {
-        this.setState({
-            open: true,
-        });
-    }
-    handleLogin() {
-        window.location = '/auth/google';
-    }
-    render() {
-        const actions = [
-                <FlatButton
-                    label="Cancel"
-                    primary={true}
-                    onTouchTap={this.handleClose.bind(this)}
-                />,
-            <FlatButton
-                label="Login"
-                primary={true}
-                onTouchTap={this.handleLogin.bind(this)}
-            />,
-        ];
+const Login = (props) => {
+    let profileButton;
 
-        return (
-            <div>
-                <RaisedButton
-                    className="signin-button"
-                    label="Login to create polls"
-                    onClick={this.handleOpen.bind(this)}
-                    labelPosition="before"
-                />
-                <Dialog
-                    actions={actions}
-                    modal={false}
-                    open={this.state.open}
-                    onRequestClose={this.handleClose.bind(this)}
-                >
-                    Login with Google.
-                </Dialog>
-            </div>
-        );
+    if (props.loggedIn) {
+        profileButton =
+            <RaisedButton
+                className="profile-button"
+                label="Create a poll"
+                labelPosition="before"
+            />;
     }
+    else {
+        profileButton = <LoginModal />;
+    }
+
+    return (
+        <div>
+            {profileButton}
+        </div>
+    );
 }
 
 Login.propTypes = {
     router: React.PropTypes.object.isRequired,
+    loggedIn: React.PropTypes.bool,
 };
 
-export default withRouter(Login);
+export default Login;

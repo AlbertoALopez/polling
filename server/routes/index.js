@@ -69,7 +69,7 @@ router.get('/auth/google/callback',
 // Server endpoint that is pinged when app initializes
 router.get('/login', (req, res) => {
     if (!req.isAuthenticated()) {
-        res.json({ loggedIn: 'false' });
+        res.json({ loggedIn: '' });
     }
     else {
         res.json(req.user);
