@@ -8,7 +8,7 @@ export default class Polls extends React.Component {
     render() {
         return (
             <div className="polls-container">
-                <PollList />
+                {this.props.children}
             </div>
         );
     }
