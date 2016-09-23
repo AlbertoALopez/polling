@@ -25,7 +25,7 @@ class App extends React.Component {
             }
             else {
                 this.setState({
-                    loggedIn: response.data.loggedIn,
+                    loggedIn: !!response.data.loggedIn,
                     userName: response.data.userName,
                 });
             }

@@ -78,8 +78,4 @@ class PollList extends React.Component {
     }
 }
 
-PollList.propTypes = {
-    polls: React.PropTypes.array.isRequired,
-};
-
 export default PollList;

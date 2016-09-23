@@ -5,8 +5,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { withRouter } from 'react-router';
 
 class LoginModal extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             open: false,
         };
@@ -42,7 +42,7 @@ class LoginModal extends React.Component {
             <div>
                 <RaisedButton
                     className="profile-button"
-                    label="Sign in with Google"
+                    label="Login"
                     onClick={this.handleOpen.bind(this)}
                     labelPosition="before"
                 />

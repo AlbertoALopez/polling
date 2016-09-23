@@ -19,7 +19,7 @@ const Home = (props) => {
                             <div className="container">
                                 <Paper zDepth={4} className="paper">
                                     <span className="text"><p>Create, vote on and share polls made by you and your friends!
-                                    </p><br /><p>Select a poll below or sign in to create your own.</p></span>
+                                    </p><br /><p>Select a poll below or login with Google to create your own.</p></span>
                                     <Row center="xs">
                                         <Login
                                             loggedIn={props.loggedIn}

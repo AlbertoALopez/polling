@@ -27,8 +27,7 @@ const Login = (props) => {
 }
 
 Login.propTypes = {
-    router: React.PropTypes.object.isRequired,
-    loggedIn: React.PropTypes.bool,
+    loggedIn: React.PropTypes.bool.isRequired,
 };
 
 export default Login;

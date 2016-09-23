@@ -76,6 +76,12 @@ router.get('/login', (req, res) => {
     }
 });
 
+// Server endpoint for logging out
+router.get('/logout', (req, res) => {
+    req.logout();
+    res.redirect('/');
+});
+
 /* REST api */
 
 // Get all users
