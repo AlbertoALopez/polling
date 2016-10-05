@@ -34,6 +34,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Routes for rest api
+app.use('/', routes);
+
 // Development and production config for react SPA
 if (isDeveloping) {
     const compiler = webpack(config);
@@ -52,19 +55,16 @@ if (isDeveloping) {
 
     app.use(middleware);
     app.use(webpackHotMiddleware(compiler));
-    app.get('/', function response(req, res) {
+    app.get('/*', function response(req, res) {
         res.write(middleware.fileSystem.readFileSync(path.join(__dirname, '../client/dist/index.html')));
         res.end();
     });
 } else {
     app.use(express.static(__dirname + '/dist'));
-    app.get('/', function response(req, res) {
+    app.get('/*', function response(req, res) {
         res.sendFile(path.join(__dirname, '../client/dist/index.html'));
     });
 }
-
-// Routes for rest api
-app.use('/', routes);
 
 // Sync postgres db models and then start server
 db.sequelize.sync().then(() => {
