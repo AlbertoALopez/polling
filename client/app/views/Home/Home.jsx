@@ -24,7 +24,7 @@ const Home = (props) => {
                                         <Login
                                             loggedIn={props.loggedIn}
                                         />
-                                        <Link to="/polls/list">
+                                        <Link to="/polls/all">
                                             <RaisedButton
                                                 label="See all polls"
                                                 className="linkButton"

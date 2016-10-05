@@ -1,15 +1,21 @@
 /* React view that displays a list of selectable polls */
 import React from 'react';
-import Paper from 'material-ui/Paper';
-import PollList from './PollList/PollList.jsx';
+import { Grid, Row, Col } from 'react-flexbox-grid';
 import './_Polls.scss';
 
-export default class Polls extends React.Component {
-    render() {
-        return (
-            <div className="polls-container">
-                {this.props.children}
-            </div>
-        );
-    }
-}
+const Polls = (props) => {
+    return (
+        <Grid>
+            <Row>
+                <Col xs={12}>
+                    {React.cloneElement(props.children, {
+                        loggedIn: props.loggedIn,
+                        userName: props.userName,
+                    })}
+                </Col>
+            </Row>
+        </Grid>
+    );
+};
+
+export default Polls;

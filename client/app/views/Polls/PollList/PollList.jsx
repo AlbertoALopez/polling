@@ -54,7 +54,7 @@ class PollList extends React.Component {
     render() {
         const polls = this.state.polls.map((poll, index) => {
             return (
-                <Link to={`/polls/view/${poll.id}`} key={poll.id}>
+                <Link to={`/polls/${poll.id}`} key={poll.id}>
                     <ListItem
                         key={poll.id}
                         primaryText={poll.id}
