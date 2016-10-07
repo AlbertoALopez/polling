@@ -5,16 +5,12 @@ import './_Polls.scss';
 
 const Polls = (props) => {
     return (
-        <Grid>
-            <Row>
-                <Col xs={12}>
-                    {React.cloneElement(props.children, {
-                        loggedIn: props.loggedIn,
-                        userName: props.userName,
-                    })}
-                </Col>
-            </Row>
-        </Grid>
+        <div>
+            {React.cloneElement(props.children, {
+                loggedIn: props.loggedIn,
+                userName: props.userName,
+            })}
+        </div>
     );
 };
 
