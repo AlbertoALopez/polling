@@ -6,7 +6,7 @@ import Home from '../views/Home/Home.jsx';
 import Polls from '../views/Polls/Polls.jsx';
 import ViewPoll from '../views/Polls/ViewPoll/ViewPoll.jsx';
 import PollList from '../views/Polls/PollList/PollList.jsx';
-import CreatePoll from '../views/Polls/CreatePoll/CreatePoll.jsx';
+import CreatePoll from '../views/Polls/CreatePoll/containers/CreatePoll.jsx';
 
 
 const routes = (

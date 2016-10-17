@@ -5,14 +5,14 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import { Row, Col } from 'react-flexbox-grid';
-import validate from '../../../utils/validate.js';
-import AnswersList from './AnswersList.jsx';
+import validate from '../../../../utils/validate.js';
+import AnswersList from '../components/AnswersList/AnswersList.jsx';
 import './_CreatePoll.scss';
 
 
 class CreatePoll extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         this.state = {
             questionValue: '',
             questionErrorMsg: '',
@@ -88,13 +88,27 @@ class CreatePoll extends React.Component {
             })
         );
     }
+    updateAnswer(answerId, newAnswerValue) {
+        const answers = this.state.answers.map((answer, index) => {
+            if (index === answerId) {
+                return newAnswerValue;
+            }
+            return answer;
+        });
+        this.setState({
+            answers,
+        });
+    }
+    deleteAnswer(answerId) {
+        const answers = this.state.answers.filter((answer, index) => {
+            return index !== answerId;
+        });
+        this.setState({
+            answers,
+        });
+    }
     handleSubmit(event) {
         event.preventDefault();
-        // const questionValue = this.question.input.value;
-        // const answerValue = this.state.
-        // this.setState({
-        //     answers: this.state.answers.push()
-        // });
     }
     render() {
         return (
@@ -110,7 +124,7 @@ class CreatePoll extends React.Component {
                             onSubmit={this.handleSubmit.bind(this)}
                         >
                             <TextField
-                                id="text-field-controlled"
+                                id="question-field-controlled"
                                 value={this.state.questionValue}
                                 onChange={this.handleQuestionChange}
                                 errorText={this.state.questionErrorMsg}
@@ -119,13 +133,18 @@ class CreatePoll extends React.Component {
                                 ref={(ref) => this.question = ref}
                             />
                             <TextField
-                                id="text-field-controlled"
+                                id="answer-field-controlled"
                                 value={this.state.answerValue}
                                 onChange={this.handleAnswerChange}
+                                onSubmit={(event) => {
+                                    event.preventDefault();
+                                    console.log('penis');
+                                }}
                                 errorText={this.state.answerErrorMsg}
                                 hintText="Answer"
                                 ref={(ref) => this.answer = ref}
                                 fullWidth={true}
+                                multiLine={true}
                             />
                             <FloatingActionButton
                                 mini={true}
@@ -147,11 +166,20 @@ class CreatePoll extends React.Component {
                         </form>
                     </div>
                     <br />
-                    <AnswersList answers={this.state.answers} />
+                    <AnswersList
+                        answers={this.state.answers}
+                        updateAnswer={this.updateAnswer.bind(this)}
+                        deleteAnswer={this.deleteAnswer.bind(this)}
+                    />
                 </Col>
             </Row>
         );
     }
 }
+
+CreatePoll.propTypes = {
+    loggedIn: React.PropTypes.bool.isRequired,
+    userName: React.PropTypes.string.isRequired,
+};
 
 export default CreatePoll;

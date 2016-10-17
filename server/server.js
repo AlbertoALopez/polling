@@ -11,6 +11,7 @@ const bodyParser            = require('body-parser');
 const session               = require('cookie-session');
 const passport              = require('passport');
 
+
 const isDeveloping = process.env.NODE_ENV !== 'production';
 const port = isDeveloping ? 3000 : process.env.PORT;
 const app = express();
@@ -25,6 +26,8 @@ app.use(session({
     name: 'session',
     signed: false,
     cookie: {
+        secure: true,
+        httpOnly: true,
         maxAge: 360000 * 14 * 24
     }
 }));
