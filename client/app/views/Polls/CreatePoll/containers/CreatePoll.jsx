@@ -130,7 +130,6 @@ class CreatePoll extends React.Component {
                                 errorText={this.state.questionErrorMsg}
                                 hintText="Question"
                                 fullWidth={true}
-                                ref={(ref) => this.question = ref}
                             />
                             <TextField
                                 id="answer-field-controlled"
@@ -142,7 +141,6 @@ class CreatePoll extends React.Component {
                                 }}
                                 errorText={this.state.answerErrorMsg}
                                 hintText="Answer"
-                                ref={(ref) => this.answer = ref}
                                 fullWidth={true}
                                 multiLine={true}
                             />
@@ -151,7 +149,6 @@ class CreatePoll extends React.Component {
                                 secondary={true}
                                 onTouchTap={this.addAnswer.bind(this)}
                                 className="add-answer-btn"
-                                ref={(ref) => this.addAnswerBtn = ref}
                                 disabled={this.state.actionButtonDisabled}
                             >
                                 <ContentAdd />
