@@ -21,6 +21,7 @@
      "indent": ["error", 4],
      "react/jsx-indent": ["error", 4],
      "react/jsx-indent-props": [2, 4],
+     "react/jsx-boolean-value": [0, "never"],
      "import/no-unresolved": [0] // Until import plugin supports webpack 2 resolveModules
   }
 }

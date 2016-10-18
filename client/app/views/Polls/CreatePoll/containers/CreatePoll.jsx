@@ -1,13 +1,11 @@
 /* View for poll creation */
 import React from 'react';
 import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
 import { Row, Col } from 'react-flexbox-grid';
 import validate from '../../../../utils/validate.js';
 import AnswersList from '../components/AnswersList/AnswersList.jsx';
 import SubmitDialog from '../components/SubmitDialog/SubmitDialog.jsx';
+import AnswerSnackbar from '../components/AnswerSnackbar/AnswerSnackbar.jsx';
 import './_CreatePoll.scss';
 
 
@@ -82,6 +80,9 @@ class CreatePoll extends React.Component {
                 actionButtonDisabled: true,
                 answers: answersArray,
             }));
+            reject(() => {
+                console.log('Error updating state');
+            });
         });
         statePromise.then(
             this.setState({
@@ -148,23 +149,16 @@ class CreatePoll extends React.Component {
                                         fullWidth={true}
                                         multiLine={true}
                                     />
-                                    <FloatingActionButton
-                                        mini={true}
-                                        secondary={true}
-                                        onTouchTap={this.addAnswer.bind(this)}
-                                        className="add-answer-btn"
-                                        disabled={this.state.actionButtonDisabled}
-                                    >
-                                        <ContentAdd />
-                                    </FloatingActionButton>
-                                    <br />
+                                    <AnswerSnackbar
+                                        addAnswer={this.addAnswer.bind(this)}
+                                        actionButtonDisabled={this.state.actionButtonDisabled}
+                                    />
                                     <SubmitDialog
                                         answers={this.state.answers}
                                         question={this.state.questionValue}
                                     />
                                 </form>
                             </div>
-                            <br />
                             <AnswersList
                                 answers={this.state.answers}
                                 updateAnswer={this.updateAnswer.bind(this)}
