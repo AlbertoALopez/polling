@@ -1,7 +1,8 @@
 /* React component for a section of user editable answers */
 import React from 'react';
 import { List } from 'material-ui/List';
-import ListItems from '../ListItems/ListItems.jsx';
+import Item from '../Item/Item.jsx';
+import './_AnswersList.scss';
 
 
 const AnswersList = (props) => {
@@ -11,11 +12,17 @@ const AnswersList = (props) => {
             <List
                 className="answers-list"
             >
-                <ListItems
-                    answers={props.answers}
-                    updateAnswer={props.updateAnswer}
-                    deleteAnswer={props.deleteAnswer}
-                />
+            {props.answers.map((answer, index) => {
+                return (
+                    <Item
+                        answer={answer}
+                        index={index}
+                        key={index}
+                        deleteAnswer={props.deleteAnswer}
+                        updateAnswer={props.updateAnswer}
+                    />
+                );
+            }, this)}
             </List>
         </div>
     );

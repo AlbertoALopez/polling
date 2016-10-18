@@ -7,6 +7,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import { Row, Col } from 'react-flexbox-grid';
 import validate from '../../../../utils/validate.js';
 import AnswersList from '../components/AnswersList/AnswersList.jsx';
+import SubmitDialog from '../components/SubmitDialog/SubmitDialog.jsx';
 import './_CreatePoll.scss';
 
 
@@ -116,15 +117,15 @@ class CreatePoll extends React.Component {
                 <Col xs={10} lg={6}>
                     {!this.props.loggedIn ? (
                         <div>
-                        <br />
-                        <p>Please log in to create a poll.</p>
+                            <br />
+                            <p>Please log in to create a poll.</p>
                         </div>
                     ) : (
                         <div>
                             <div className="form">
                                 <div className="poll-description">
-                                    <p>Type your question and answers here. Enter
-                                    at least one answer.</p>
+                                    <p>Enter your question and answers here. Please
+                                    include at least one answer.</p>
                                 </div>
                                 <form
                                     className="text-field"
@@ -157,11 +158,9 @@ class CreatePoll extends React.Component {
                                         <ContentAdd />
                                     </FloatingActionButton>
                                     <br />
-                                    <RaisedButton
-                                        className="submit-btn"
-                                        label="Submit"
-                                        primary={true}
-                                        type="submit"
+                                    <SubmitDialog
+                                        answers={this.state.answers}
+                                        question={this.state.questionValue}
                                     />
                                 </form>
                             </div>
