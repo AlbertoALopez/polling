@@ -1,6 +1,6 @@
 /* Container for a list of answer items */
 import React from 'react';
-import Item from '../ListItem/ListItem.jsx';
+import Item from '../Item/Item.jsx';
 
 
 const ListItems = (props) => {

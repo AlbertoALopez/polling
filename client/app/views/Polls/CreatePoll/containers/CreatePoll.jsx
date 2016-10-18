@@ -135,10 +135,6 @@ class CreatePoll extends React.Component {
                                 id="answer-field-controlled"
                                 value={this.state.answerValue}
                                 onChange={this.handleAnswerChange}
-                                onSubmit={(event) => {
-                                    event.preventDefault();
-                                    console.log('penis');
-                                }}
                                 errorText={this.state.answerErrorMsg}
                                 hintText="Answer"
                                 fullWidth={true}

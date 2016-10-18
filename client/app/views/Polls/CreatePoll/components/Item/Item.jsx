@@ -5,7 +5,7 @@ import Edit from 'material-ui/svg-icons/image/edit';
 import Delete from 'material-ui/svg-icons/action/delete';
 import TextField from 'material-ui/TextField';
 import validate from '../../../../../utils/validate.js';
-import './_ListItem.scss';
+import './_Item.scss';
 
 
 const styles = {
