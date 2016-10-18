@@ -1,6 +1,7 @@
 /* Container for a list of answer items */
 import React from 'react';
 import Item from '../Item/Item.jsx';
+import './_ListItems.scss';
 
 
 const ListItems = (props) => {

@@ -114,56 +114,65 @@ class CreatePoll extends React.Component {
         return (
             <Row center="xs">
                 <Col xs={10} lg={6}>
-                    <div className="form">
-                        <div className="poll-description">
-                            <p>Type your question and answers here. Enter
-                            at least one answer.</p>
+                    {!this.props.loggedIn ? (
+                        <div>
+                        <br />
+                        <p>Please log in to create a poll.</p>
                         </div>
-                        <form
-                            className="text-field"
-                            onSubmit={this.handleSubmit.bind(this)}
-                        >
-                            <TextField
-                                id="question-field-controlled"
-                                value={this.state.questionValue}
-                                onChange={this.handleQuestionChange}
-                                errorText={this.state.questionErrorMsg}
-                                hintText="Question"
-                                fullWidth={true}
-                            />
-                            <TextField
-                                id="answer-field-controlled"
-                                value={this.state.answerValue}
-                                onChange={this.handleAnswerChange}
-                                errorText={this.state.answerErrorMsg}
-                                hintText="Answer"
-                                fullWidth={true}
-                                multiLine={true}
-                            />
-                            <FloatingActionButton
-                                mini={true}
-                                secondary={true}
-                                onTouchTap={this.addAnswer.bind(this)}
-                                className="add-answer-btn"
-                                disabled={this.state.actionButtonDisabled}
-                            >
-                                <ContentAdd />
-                            </FloatingActionButton>
+                    ) : (
+                        <div>
+                            <div className="form">
+                                <div className="poll-description">
+                                    <p>Type your question and answers here. Enter
+                                    at least one answer.</p>
+                                </div>
+                                <form
+                                    className="text-field"
+                                    onSubmit={this.handleSubmit.bind(this)}
+                                >
+                                    <TextField
+                                        id="question-field-controlled"
+                                        value={this.state.questionValue}
+                                        onChange={this.handleQuestionChange}
+                                        errorText={this.state.questionErrorMsg}
+                                        hintText="Question"
+                                        fullWidth={true}
+                                    />
+                                    <TextField
+                                        id="answer-field-controlled"
+                                        value={this.state.answerValue}
+                                        onChange={this.handleAnswerChange}
+                                        errorText={this.state.answerErrorMsg}
+                                        hintText="Answer"
+                                        fullWidth={true}
+                                        multiLine={true}
+                                    />
+                                    <FloatingActionButton
+                                        mini={true}
+                                        secondary={true}
+                                        onTouchTap={this.addAnswer.bind(this)}
+                                        className="add-answer-btn"
+                                        disabled={this.state.actionButtonDisabled}
+                                    >
+                                        <ContentAdd />
+                                    </FloatingActionButton>
+                                    <br />
+                                    <RaisedButton
+                                        className="submit-btn"
+                                        label="Submit"
+                                        primary={true}
+                                        type="submit"
+                                    />
+                                </form>
+                            </div>
                             <br />
-                            <RaisedButton
-                                className="submit-btn"
-                                label="Submit"
-                                primary={true}
-                                type="submit"
+                            <AnswersList
+                                answers={this.state.answers}
+                                updateAnswer={this.updateAnswer.bind(this)}
+                                deleteAnswer={this.deleteAnswer.bind(this)}
                             />
-                        </form>
-                    </div>
-                    <br />
-                    <AnswersList
-                        answers={this.state.answers}
-                        updateAnswer={this.updateAnswer.bind(this)}
-                        deleteAnswer={this.deleteAnswer.bind(this)}
-                    />
+                        </div>
+                    )}
                 </Col>
             </Row>
         );
