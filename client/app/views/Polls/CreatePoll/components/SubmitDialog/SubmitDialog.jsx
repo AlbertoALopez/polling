@@ -4,6 +4,7 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import { List, ListItem } from 'material-ui/List';
+import axios from 'axios';
 import './_SubmitDialog.scss';
 
 
@@ -34,7 +35,24 @@ class SubmitDialog extends React.Component {
         this.setState({
             submissionError,
         });
-        console.log(this.state.submissionError);
+    }
+    handleSubmit = () => {
+        const that = this;
+        axios({
+            method: 'POST',
+            url: 'api/createpoll',
+            data: {
+                userName: that.props.userName,
+                answer: that.props.answer,
+                question: that.props.question,
+            },
+        })
+        .then((response) => {
+            console.log(response);
+        })
+        .catch((err) => {
+            console.log(`There was an error submitting post: ${err}`);
+        });
     }
     render() {
         const errorMsg = 'Please enter a valid question and at least one answer.';
@@ -47,7 +65,7 @@ class SubmitDialog extends React.Component {
             <FlatButton
                 label="Submit"
                 primary={true}
-                onTouchTap={this.handleClose}
+                onTouchTap={this.handleSubmit}
             />,
         ];
         return (
@@ -96,7 +114,6 @@ class SubmitDialog extends React.Component {
 
                     </div>
                 </Dialog>
-
             </div>
         );
     }
@@ -105,6 +122,7 @@ class SubmitDialog extends React.Component {
 SubmitDialog.propTypes = {
     question: React.PropTypes.string.isRequired,
     answers: React.PropTypes.array.isRequired,
+    userName: React.PropTypes.string,
 };
 
 export default SubmitDialog;

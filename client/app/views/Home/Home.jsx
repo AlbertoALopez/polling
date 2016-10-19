@@ -26,7 +26,7 @@ const Home = (props) => {
                                         />
                                         <Link to="/polls/all">
                                             <RaisedButton
-                                                label="See all polls"
+                                                label="See all"
                                                 className="linkButton"
                                             />
                                         </Link>

@@ -3,8 +3,11 @@ const models = require('../models/index');
 const passport = require('passport');
 const token = require('../config/token.json');
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
+const bodyParser = require('body-parser');
 
 const router = new express.Router();
+
+const jsonParser = bodyParser.json();
 
 /* Passport.js config and authentication routes */
 
@@ -84,13 +87,6 @@ router.get('/logout', (req, res) => {
 
 /* REST api */
 
-// Get all users
-router.get('/api/users', (req, res) => {
-    models.User.findAll({ order: '"createdAt" DESC' }).then((users) => {
-        res.json(users);
-    });
-});
-
 // Get specific user
 router.get('/api/user/:id', (req, res) => {
     models.User.find({
@@ -123,16 +119,22 @@ router.get('/api/poll/:id', (req, res) => {
 });
 
 // Create new poll
-router.post('/api/polls', (req, res) => {
-    models.Poll.create({
-        question: req.body.question,
-    }).then((poll) => {
-        res.json(poll);
-    });
+router.post('/api/createpoll', jsonParser, (req, res) => {
+    if (req.isAuthenticated()) {
+        console.log(req.body);
+        // models.Poll.create({
+        //     question: req.body.question,
+        // }).then((poll) => {
+        //     res.json(poll);
+        // });
+    }
+    else {
+        res.status(401).send('You must be logged in to create a poll.');
+    }
 });
 
 // Update poll
-router.put('/api/polls', (req, res) => {
+router.put('/api/updatepoll', (req, res) => {
     models.Poll.find({
         where: {
             id: req.params.id,
@@ -149,7 +151,7 @@ router.put('/api/polls', (req, res) => {
 });
 
 // Delete a poll
-router.delete('/api/poll/:id', (req, res) => {
+router.delete('/api/deletepoll/:id', (req, res) => {
     models.Poll.destroy({
         where: {
             id: req.params.id,

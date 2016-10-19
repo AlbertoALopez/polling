@@ -152,7 +152,7 @@ class CreatePoll extends React.Component {
                                     <SubmitDialog
                                         answers={this.state.answers}
                                         question={this.state.questionValue}
-
+                                        userName={this.props.userName}
                                     />
                                 </form>
                             </div>
