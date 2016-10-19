@@ -109,9 +109,6 @@ class CreatePoll extends React.Component {
             answers,
         });
     }
-    handleSubmit(event) {
-        event.preventDefault();
-    }
     render() {
         return (
             <Row center="xs">
@@ -130,7 +127,6 @@ class CreatePoll extends React.Component {
                                 </div>
                                 <form
                                     className="text-field"
-                                    onSubmit={this.handleSubmit.bind(this)}
                                 >
                                     <TextField
                                         id="question-field-controlled"
@@ -156,6 +152,7 @@ class CreatePoll extends React.Component {
                                     <SubmitDialog
                                         answers={this.state.answers}
                                         question={this.state.questionValue}
+
                                     />
                                 </form>
                             </div>

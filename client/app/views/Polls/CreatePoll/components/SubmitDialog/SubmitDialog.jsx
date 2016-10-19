@@ -12,6 +12,7 @@ class SubmitDialog extends React.Component {
         super(props);
         this.state = {
             open: false,
+            submissionError: false,
         };
     }
     handleOpen = () => {
@@ -24,7 +25,19 @@ class SubmitDialog extends React.Component {
             open: false,
         });
     }
+    validateFields = () => {
+        let submissionError = false;
+        if (this.props.answers.length < 1 || !this.props.question) {
+            submissionError = true;
+        }
+
+        this.setState({
+            submissionError,
+        });
+        console.log(this.state.submissionError);
+    }
     render() {
+        const errorMsg = 'Please enter a valid question and at least one answer.';
         const actions = [
             <FlatButton
                 label="Cancel"
@@ -43,8 +56,10 @@ class SubmitDialog extends React.Component {
                     className="submit-btn"
                     label="Submit"
                     primary={true}
-                    type="submit"
-                    onTouchTap={this.handleOpen}
+                    onTouchTap={() => {
+                        this.validateFields();
+                        this.handleOpen();
+                    }}
                 />
                 <Dialog
                     title="Review your poll"
@@ -55,23 +70,30 @@ class SubmitDialog extends React.Component {
                     autoScrollBodyContent={true}
                 >
                     <div>
-                        <br />
-                        <h3>Question</h3>
-                        <br />
-                        <p>{this.props.question}</p>
-                        <br />
-                        <h3>Answers</h3>
-                        <List>
-                            {this.props.answers.map((answer, index) => {
-                                return (
-                                    <ListItem
-                                        className="answer-item"
-                                        primaryText={answer}
-                                        key={index}
-                                    />
-                                );
-                            })}
-                        </List>
+                        {this.state.submissionError ? (
+                            <span id="error-msg"><p>{errorMsg}</p></span>
+                        ) : (
+                            <div>
+                                <br />
+                                <h3>Question</h3>
+                                <br />
+                                <p>{this.props.question}</p>
+                                <br />
+                                <h3>Answers</h3>
+                                <List>
+                                    {this.props.answers.map((answer, index) => {
+                                        return (
+                                            <ListItem
+                                                className="answer-item"
+                                                primaryText={answer}
+                                                key={index}
+                                            />
+                                        );
+                                    })}
+                                </List>
+                            </div>
+                        )}
+
                     </div>
                 </Dialog>
 
