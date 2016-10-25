@@ -70,11 +70,20 @@ if (isDeveloping) {
 }
 
 // Sync postgres db models and then start server
-db.sequelize.sync().then(() => {
+db.sequelize.sync({
+    'force': true
+}).then(() => {
     app.listen(port, '0.0.0.0', (err) => {
         if (err) {
             console.log(`There was an error:\n${err}`);
         }
         console.info('==> 🌎 Listening on port %s. Open up http://0.0.0.0:%s/ in your browser.', port, port);
     });
+}).catch((err) => {
+    if (err) {
+        console.log(`Error syncing database: ${err}`);
+    }
+    else {
+        console.log('Database synced succesfully');
+    }
 });
