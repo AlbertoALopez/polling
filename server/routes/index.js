@@ -34,20 +34,22 @@ passport.use(new GoogleStrategy({
     process.nextTick(() => {
         models.User.find({
             where: {
-                UserId: googleProfile.id,
+                userId: googleProfile.id,
             },
         }).then((user) => {
             if (!user) {
                 models.User.create({
                     username: googleProfile.displayName,
-                    UserId: googleProfile.id,
+                    userId: googleProfile.id,
                 }).then((newUser) => {
                     return done(null, newUser);
                 }).catch((error) => {
                     console.log(`Error creating user:\n${error}`);
                 });
             }
-            return done(null, user);
+            else {
+                return done(null, user);
+            }
         }).catch((error) => {
             console.log(`Error retrieving user:\n${error}`);
         });
@@ -62,7 +64,7 @@ router.get('/auth/google',
 
 router.get('/auth/google/callback',
     passport.authenticate('google', {
-        failureRedirect: '/login/failure',
+        failureRedirect: '/login',
     }),
     (req, res) => {
         res.redirect('/');

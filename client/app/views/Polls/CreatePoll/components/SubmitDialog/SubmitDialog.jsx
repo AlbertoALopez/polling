@@ -43,7 +43,7 @@ class SubmitDialog extends React.Component {
             url: 'api/createpoll',
             data: {
                 userName: that.props.userName,
-                answer: that.props.answer,
+                answers: that.props.answers,
                 question: that.props.question,
             },
         })
