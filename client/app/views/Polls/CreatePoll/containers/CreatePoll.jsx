@@ -127,6 +127,7 @@ class CreatePoll extends React.Component {
                                 </div>
                                 <form
                                     className="text-field"
+                                    onSubmit={(e) => e.preventDefault()}
                                 >
                                     <TextField
                                         id="question-field-controlled"

@@ -41,6 +41,7 @@ class SubmitDialog extends React.Component {
         axios({
             method: 'POST',
             url: 'api/createpoll',
+            baseURL: '/',
             data: {
                 userName: that.props.userName,
                 answers: that.props.answers,
