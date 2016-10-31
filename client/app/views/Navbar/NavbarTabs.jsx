@@ -16,7 +16,7 @@ const NavbarTabs = (props) => {
                 className="navbar-btn"
                 label="Logout"
                 labelPosition="before"
-                onTouchTap={(e) => { auth.logout(e); }}
+                onTouchTap={(e) => auth.logout(e)}
             />;
     }
     else {
@@ -25,7 +25,7 @@ const NavbarTabs = (props) => {
                 className="navbar-btn"
                 label="Login"
                 labelPosition="before"
-                onTouchTap={(e) => { auth.login(e); }}
+                onTouchTap={(e) => auth.login(e)}
             />;
     }
     return (

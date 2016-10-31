@@ -4,6 +4,7 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import { List, ListItem } from 'material-ui/List';
+import { withRouter } from 'react-router';
 import axios from 'axios';
 import './_SubmitDialog.scss';
 
@@ -49,7 +50,7 @@ class SubmitDialog extends React.Component {
             },
         })
         .then((response) => {
-            console.log(response);
+            that.props.router.push(`/polls/${response.data[0]}`);
         })
         .catch((err) => {
             console.log(`There was an error submitting post: ${err}`);
@@ -124,6 +125,7 @@ SubmitDialog.propTypes = {
     question: React.PropTypes.string.isRequired,
     answers: React.PropTypes.array.isRequired,
     userName: React.PropTypes.string,
+    router: React.PropTypes.object.isRequired,
 };
 
-export default SubmitDialog;
+export default withRouter(SubmitDialog);
