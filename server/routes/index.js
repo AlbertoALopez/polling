@@ -123,12 +123,29 @@ router.get('/api/poll/:id', (req, res) => {
 // Create new poll
 router.post('/api/createpoll', jsonParser, (req, res) => {
     if (req.isAuthenticated()) {
-        console.log(req.body);
-        // models.Poll.create({
-        //     question: req.body.question,
-        // }).then((poll) => {
-        //     res.json(poll);
-        // });
+        let pollId;
+        models.User.find({
+            where: {
+                username: req.body.userName,
+            },
+        }).then((user) => {
+            return models.Poll.create({
+                question: req.body.question,
+                UserId: user.id,
+            });
+        }).then((poll) => {
+            pollId = poll.id;
+            return req.body.answers.map((answer, index) => {
+                return models.Answers.create({
+                    answer,
+                    PollId: poll.id,
+                });
+            });
+        }).then((result) => {
+            res.json(pollId);
+        }).catch((err) => {
+            console.log(`Error creating poll: ${err}`);
+        });
     }
     else {
         res.status(401).send('You must be logged in to create a poll.');
