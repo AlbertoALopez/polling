@@ -36,7 +36,8 @@ if (!global.hasOwnProperty('db')) {
 
 /* Associations */
 global.db.Poll.belongsTo(global.db.User, {});
-global.db.Answers.belongsTo(global.db.Poll, {});
+global.db.Poll.hasMany(global.db.Votes, {});
+global.db.Poll.hasMany(global.db.Answers, {});
 global.db.Votes.belongsTo(global.db.Answers, {});
 
 module.exports = global.db;

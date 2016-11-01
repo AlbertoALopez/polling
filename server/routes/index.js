@@ -111,12 +111,28 @@ router.get('/api/polls', (req, res) => {
 
 // Get specific poll
 router.get('/api/poll/:id', (req, res) => {
+    const response = {};
     models.Poll.find({
         where: {
             id: req.params.id,
         },
-    }).then((poll) => {
-        res.json(poll);
+        include: [
+            models.Answers,
+            models.Votes,
+        ],
+    }).then((queryResult) => {
+        // response.pollAndAnswer = {
+        //     queryResult,
+        // };
+        res.json(queryResult);
+        // return models.Votes.find({
+        //     where: {
+        //         PollId: req.params.id,
+        //     },
+        // });
+    })
+    .catch((err) => {
+        console.log(`There was an error: ${err}`);
     });
 });
 
