@@ -50,7 +50,7 @@ class SubmitDialog extends React.Component {
             },
         })
         .then((response) => {
-            that.props.router.push(`/polls/${response.data[0]}`);
+            that.props.router.push(`/polls/${response.data}`);
         })
         .catch((err) => {
             console.log(`There was an error submitting post: ${err}`);
