@@ -30,14 +30,11 @@ if (!global.hasOwnProperty('db')) {
         User: sequelize.import(path.join(__dirname, '/user')),
         Poll: sequelize.import(path.join(__dirname, '/poll')),
         Answers: sequelize.import(path.join(__dirname, '/answers')),
-        Votes: sequelize.import(path.join(__dirname, '/votes')),
     };
 }
 
 /* Associations */
 global.db.Poll.belongsTo(global.db.User, {});
-global.db.Poll.hasMany(global.db.Votes, {});
 global.db.Poll.hasMany(global.db.Answers, {});
-global.db.Votes.belongsTo(global.db.Answers, {});
 
 module.exports = global.db;
