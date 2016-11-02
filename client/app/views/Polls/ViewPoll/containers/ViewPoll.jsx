@@ -33,10 +33,21 @@ class ViewPoll extends React.Component {
     }
     handleVote(e, answerId) {
         e.preventDefault();
+        const that = this;
         axios.put(`/api/vote/${answerId}`, {
             // No payload
         }).then((response) => {
-            console.log(response);
+            const answers = that.state.answers.map((element, index) => {
+                if (element.id === response.data.id) {
+                    return response.data;
+                }
+
+                return element;
+            });
+
+            that.setState({
+                answers,
+            });
         })
         .catch((err) => {
             console.error(`Error updating answer: ${err}`);
@@ -57,7 +68,7 @@ class ViewPoll extends React.Component {
                             <VotingBox
                                 answers={this.state.answers}
                                 pollId={this.state.pollId}
-                                handleVote={this.handleVote}
+                                handleVote={this.handleVote.bind(this)}
                             />
                         </div>
                     </Col>
