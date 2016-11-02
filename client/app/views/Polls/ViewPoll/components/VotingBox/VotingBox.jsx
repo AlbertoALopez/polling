@@ -3,38 +3,50 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 
+
 export default class VotingBox extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: 1,
+            value: '',
         };
-        this.handleSubmit.bind(this);
     }
-    handleChange = (event, index, value) => this.setState({ value });
-    handleSubmit(event) {
-        console.log('submit');
+    handleChange = (event, index, value) => {
+        this.setState({ value });
     }
     render() {
+        const menuItems = this.props.answers.map((value, index) => {
+            return (
+                <MenuItem
+                    value={value.id}
+                    key={value.id}
+                    primaryText={value.answer}
+                />
+            );
+        });
         return (
             <div>
                 <SelectField
                     value={this.state.value}
                     onChange={this.handleChange}
                 >
-                    <MenuItem value={1} primaryText="Placeholder1" />
-                    <MenuItem value={2} primaryText="Placeholder2" />
-                    <MenuItem value={3} primaryText="Placeholder3" />
-                    <MenuItem value={4} primaryText="Placeholder4" />
-                    <MenuItem value={5} primaryText="Placeholder5" />
+                    { menuItems }
                 </SelectField>
                 <br />
                 <RaisedButton
                     label="Submit"
                     primary={true}
-                    onClick={this.handleSubmit}
+                    onClick={(e) => {
+                        this.props.handleVote(e, this.state.value);
+                    }}
                 />
             </div>
         );
     }
 }
+
+VotingBox.propTypes = {
+    answers: React.PropTypes.array.isRequired,
+    pollId: React.PropTypes.number.isRequired,
+    handleVote: React.PropTypes.func.isRequired,
+};

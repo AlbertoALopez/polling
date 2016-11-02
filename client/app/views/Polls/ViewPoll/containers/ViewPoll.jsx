@@ -12,15 +12,34 @@ class ViewPoll extends React.Component {
         this.state = {
             answers: [],
             question: '',
-            votes: [],
             pollId: '',
         };
     }
     componentDidMount() {
         const pollId = window.location.pathname.split('/')[2];
+        const that = this;
         axios.get(`/api/poll/${pollId}`)
         .then((response) => {
+            that.setState({
+                answers: response.data.Answers,
+                votes: response.data.Votes,
+                question: response.data.question,
+                pollId,
+            });
+        })
+        .catch((err) => {
+            console.log(`Error retrieving poll: ${err}`);
+        });
+    }
+    handleVote(e, answerId) {
+        e.preventDefault();
+        axios.put(`/api/vote/${answerId}`, {
+            // No payload
+        }).then((response) => {
             console.log(response);
+        })
+        .catch((err) => {
+            console.error(`Error updating answer: ${err}`);
         });
     }
     render() {
@@ -28,10 +47,18 @@ class ViewPoll extends React.Component {
             <Grid>
                 <Row >
                     <Col xs={12}>
-                        <PollChart />
+                        <PollChart
+                            answers={this.state.answers}
+                            question={this.state.question}
+                            votes={this.state.votes}
+                        />
                         <div className="voting-container">
                             <p>Vote on this poll</p>
-                            <VotingBox />
+                            <VotingBox
+                                answers={this.state.answers}
+                                pollId={this.state.pollId}
+                                handleVote={this.handleVote}
+                            />
                         </div>
                     </Col>
                 </Row>

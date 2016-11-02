@@ -51,7 +51,7 @@ passport.use(new GoogleStrategy({
                 return done(null, user);
             }
         }).catch((error) => {
-            console.log(`Error retrieving user:\n${error}`);
+            res.status(500).send(`Error retrieving user:\n${error}`);
         });
     });
 }));
@@ -111,7 +111,6 @@ router.get('/api/polls', (req, res) => {
 
 // Get specific poll
 router.get('/api/poll/:id', (req, res) => {
-    const response = {};
     models.Poll.find({
         where: {
             id: req.params.id,
@@ -123,7 +122,7 @@ router.get('/api/poll/:id', (req, res) => {
         res.json(queryResult);
     })
     .catch((err) => {
-        console.log(`There was an error: ${err}`);
+        res.status(500).send(`There was an error: ${err}`);
     });
 });
 
@@ -146,12 +145,14 @@ router.post('/api/createpoll', jsonParser, (req, res) => {
                 return models.Answers.create({
                     answer,
                     PollId: poll.id,
+                    votes: 0,
                 });
             });
         }).then((result) => {
             res.json(pollId);
-        }).catch((err) => {
-            console.log(`Error creating poll: ${err}`);
+        })
+        .catch((err) => {
+            res.status(500).send(`Error creating poll: ${err}`);
         });
     }
     else {
@@ -161,18 +162,39 @@ router.post('/api/createpoll', jsonParser, (req, res) => {
 
 // Update poll
 router.put('/api/updatepoll', (req, res) => {
-    models.Poll.find({
+    if (req.isAuthenticated()) {
+        models.Poll.find({
+            where: {
+                id: req.params.id,
+            },
+        }).then((poll) => {
+            if (poll) {
+                poll.updateAttributes({
+                    question: req.body.question,
+                }).then((updatedPoll) => {
+                    res.send(updatedPoll);
+                });
+            }
+        });
+    }
+    else {
+        res.status(401).send('You must be logged in to vote');
+    }
+});
+
+// Update votes
+router.put('/api/vote/:id', (req, res) => {
+    models.Answers.find({
         where: {
             id: req.params.id,
         },
-    }).then((poll) => {
-        if (poll) {
-            poll.updateAttributes({
-                question: req.body.question,
-            }).then((updatedPoll) => {
-                res.send(updatedPoll);
-            });
-        }
+    }).then((answer) => {
+        return answer.increment('votes');
+    }).then((result) => {
+        res.json(result);
+    })
+    .catch((err) => {
+        res.status(500).send(`Error updating: ${err}`);
     });
 });
 

@@ -2,7 +2,10 @@
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define('Answers', {
         answer: DataTypes.TEXT,
-        votes: DataTypes.INTEGER,
+        votes: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
     }, {
         timestamps: false,
     });
