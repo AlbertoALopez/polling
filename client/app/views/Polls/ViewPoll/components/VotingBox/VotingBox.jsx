@@ -26,6 +26,7 @@ export default class VotingBox extends React.Component {
         });
         return (
             <div>
+                <p>Vote on this poll</p>
                 <SelectField
                     value={this.state.value}
                     onChange={this.handleChange}

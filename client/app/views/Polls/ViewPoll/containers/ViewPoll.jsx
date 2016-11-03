@@ -5,6 +5,7 @@ import PollChart from '../components/PollChart/PollChart.jsx';
 import VotingBox from '../components/VotingBox/VotingBox.jsx';
 import axios from 'axios';
 import './_ViewPoll.scss';
+import hex from '../../../../utils/hex';
 
 class ViewPoll extends React.Component {
     constructor() {
@@ -13,6 +14,7 @@ class ViewPoll extends React.Component {
             answers: [],
             question: '',
             pollId: '',
+            colors: [],
         };
     }
     componentDidMount() {
@@ -20,11 +22,16 @@ class ViewPoll extends React.Component {
         const that = this;
         axios.get(`/api/poll/${pollId}`)
         .then((response) => {
+            const colors = [];
+            response.data.Answers.forEach(() => {
+                colors.push(hex.generate());
+            });
             that.setState({
                 answers: response.data.Answers,
                 votes: response.data.Votes,
                 question: response.data.question,
                 pollId,
+                colors,
             });
         })
         .catch((err) => {
@@ -62,9 +69,9 @@ class ViewPoll extends React.Component {
                             answers={this.state.answers}
                             question={this.state.question}
                             votes={this.state.votes}
+                            colors={this.state.colors}
                         />
                         <div className="voting-container">
-                            <p>Vote on this poll</p>
                             <VotingBox
                                 answers={this.state.answers}
                                 pollId={this.state.pollId}
