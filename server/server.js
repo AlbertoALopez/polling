@@ -80,10 +80,5 @@ db.sequelize.sync({
         console.info('==> 🌎 Listening on port %s. Open up http://0.0.0.0:%s/ in your browser.', port, port);
     });
 }).catch((err) => {
-    if (err) {
-        console.log(`Error syncing database: ${err}`);
-    }
-    else {
-        console.log('Database synced succesfully');
-    }
+    console.log(`Error syncing database: ${err}`);
 });
