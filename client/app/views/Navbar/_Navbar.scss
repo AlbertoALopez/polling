@@ -5,3 +5,9 @@
 .navbar-btn {
     margin-top: 5px,
 }
+
+@media (max-width: 350px) {
+    .navbar-title {
+        display: none;
+    }
+}
