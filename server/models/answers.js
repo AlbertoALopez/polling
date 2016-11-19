@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER,
             allowNull: false,
         },
+        votedBy: DataTypes.ARRAY(DataTypes.TEXT),
     }, {
         timestamps: false,
     });
