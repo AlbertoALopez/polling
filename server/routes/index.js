@@ -4,8 +4,10 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
 const bodyParser = require('body-parser');
 const sequelize = require('sequelize');
+const isDeveloping = process.env.NODE_ENV !== 'production';
 let clientID;
 let clientSecret;
+let callbackURL;
 
 const router = new express.Router();
 
@@ -13,16 +15,18 @@ const jsonParser = bodyParser.json();
 
 /* Passport.js config and authentication routes */
 
-// Set enviorment variables needed for oauth2
-if (process.env.NODE_ENV) {
+// Set environment variables needed for oauth2
+if (!isDeveloping) {
     clientID = process.env.CLIENT_ID;
     clientSecret = process.env.CLIENT_SECRET;
+    callbackURL = 'https://shrouded-fortress-20795.herokuapp.com/auth/google/callback';
 }
 
 else {
     const token = require('../config/token.json');
     clientID = token.clientID;
-    clientSecret = token.clientSecret;
+    clientSecret = token.client_secret;
+    callbackURL = 'http://127.0.0.1:3000/auth/google/callback';
 }
 
 // Passport serialization for session management
@@ -41,7 +45,7 @@ passport.deserializeUser((user, done) => {
 passport.use(new GoogleStrategy({
     clientID,
     clientSecret,
-    callbackURL: 'http://127.0.0.1:3000/auth/google/callback',
+    callbackURL,
     passReqToCallback: true,
 },
 (requestToken, accessToken, refreshToken, googleProfile, done) => {
