@@ -15,7 +15,7 @@ class Navbar extends React.Component {
         return (
             <AppBar
                 onTitleTouchTap={this.handleTouchTap.bind(this)}
-                title={<span className="navbar-title">Polling</span>}
+                // title={<span className="navbar-title">Polling</span>}
                 iconElementLeft={<LeftDrawer />}
                 iconElementRight={<NavbarTabs loggedIn={this.props.loggedIn}/>}
             />
