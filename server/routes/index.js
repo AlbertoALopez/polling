@@ -1,15 +1,29 @@
 const express = require('express');
 const models = require('../models/index');
 const passport = require('passport');
-const token = require('../config/token.json');
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
 const bodyParser = require('body-parser');
+const sequelize = require('sequelize');
+let clientID;
+let clientSecret;
 
 const router = new express.Router();
 
 const jsonParser = bodyParser.json();
 
 /* Passport.js config and authentication routes */
+
+// Set enviorment variables needed for oauth2
+if (process.env.NODE_ENV) {
+    clientID = process.env.CLIENT_ID;
+    clientSecret = process.env.CLIENT_SECRET;
+}
+
+else {
+    const token = require('../config/token.json');
+    clientID = token.clientID;
+    clientSecret = token.clientSecret;
+}
 
 // Passport serialization for session management
 passport.serializeUser((user, done) => {
@@ -25,8 +39,8 @@ passport.deserializeUser((user, done) => {
 
 // Configure passport
 passport.use(new GoogleStrategy({
-    clientID: token.clientID,
-    clientSecret: token.client_secret,
+    clientID,
+    clientSecret,
     callbackURL: 'http://127.0.0.1:3000/auth/google/callback',
     passReqToCallback: true,
 },
@@ -71,7 +85,7 @@ router.get('/auth/google/callback',
     }
 );
 
-// Server endpoint that is pinged when app initializes
+// Server endpoint that is pinged when app is redirected after login
 router.get('/login', (req, res) => {
     if (!req.isAuthenticated()) {
         res.json({ loggedIn: '' });
@@ -182,19 +196,24 @@ router.put('/api/updatepoll', (req, res) => {
     }
 });
 
-// Update votes
-router.put('/api/vote/:id', (req, res) => {
+// Update answer with new vote
+router.put('/api/vote/:id', jsonParser, (req, res) => {
     models.Answers.find({
         where: {
             id: req.params.id,
         },
     }).then((answer) => {
         return answer.increment('votes');
+    }).then((answer) => {
+        return answer.update({
+            votedBy: sequelize.fn('array_append', sequelize.col('votedBy'), req.body.userName),
+        });
     }).then((result) => {
         res.json(result);
     })
     .catch((err) => {
         res.status(500).send(`Error updating: ${err}`);
+        console.log(err);
     });
 });
 
@@ -208,5 +227,14 @@ router.delete('/api/deletepoll/:id', (req, res) => {
         res.json(poll);
     });
 });
+
+// Authentication middleware
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+
+    res.redirect('/');
+}
 
 module.exports = router;

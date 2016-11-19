@@ -10,8 +10,6 @@ const routes                = require('./routes/index');
 const bodyParser            = require('body-parser');
 const session               = require('cookie-session');
 const passport              = require('passport');
-
-
 const isDeveloping = process.env.NODE_ENV !== 'production';
 const port = isDeveloping ? 3000 : process.env.PORT;
 const app = express();
@@ -58,13 +56,15 @@ if (isDeveloping) {
 
     app.use(middleware);
     app.use(webpackHotMiddleware(compiler));
-    app.get('/*', function response(req, res) {
+    app.get('*', function response(req, res) {
         res.write(middleware.fileSystem.readFileSync(path.join(__dirname, '../client/dist/index.html')));
         res.end();
     });
-} else {
-    app.use(express.static(__dirname + '/dist'));
-    app.get('/*', function response(req, res) {
+}
+
+else {
+    app.use(express.static(path.join(__dirname, '../client/dist/')));
+    app.get('*', function response(req, res) {
         res.sendFile(path.join(__dirname, '../client/dist/index.html'));
     });
 }
@@ -72,7 +72,8 @@ if (isDeveloping) {
 // Sync postgres db models and then start server
 db.sequelize.sync({
     // 'force': true
-}).then(() => {
+})
+.then(() => {
     app.listen(port, '0.0.0.0', (err) => {
         if (err) {
             console.log(`There was an error:\n${err}`);
