@@ -2,7 +2,7 @@
 import { withRouter } from 'react-router';
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
-import NavbarTabs from './NavbarTabs.jsx';
+import NavbarTabs from './NavbarTabs/NavbarTabs.jsx';
 import LeftDrawer from '../LeftDrawer/LeftDrawer.jsx';
 import './_Navbar.scss';
 

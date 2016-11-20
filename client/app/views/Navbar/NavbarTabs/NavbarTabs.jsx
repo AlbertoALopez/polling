@@ -1,9 +1,9 @@
 import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import ActionHome from 'material-ui/svg-icons/action/home';
-import LoginModal from '../Home/Login/LoginModal.jsx';
+import LoginModal from '../../Home/Login/LoginModal.jsx';
 import { Link } from 'react-router';
-import auth from '../../utils/auth.js';
+import auth from '../../../utils/auth.js';
 
 
 const styles = {

@@ -1,15 +1,32 @@
 /* React component that displays a list of polls */
 import React from 'react';
-import { List, ListItem } from 'material-ui/List';
-import Divider from 'material-ui/Divider';
+import { GridList, GridTile } from 'material-ui/GridList';
 import Subheader from 'material-ui/Subheader';
-import { grey400, darkBlack } from 'material-ui/styles/colors';
+import { grey400 } from 'material-ui/styles/colors';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import { Link } from 'react-router';
 import axios from 'axios';
+
+const styles = {
+    root: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'space-around',
+    },
+    gridList: {
+        width: '500px',
+        marginTop: '20px',
+        overflowY: 'auto',
+        marginBottom: '100px',
+    },
+    gridTile: {
+        background: grey400,
+        paddingLeft: '10px'
+    }
+};
 
 const iconButtonElement = (
     <IconButton
@@ -52,27 +69,27 @@ class PollList extends React.Component {
             });
     }
     render() {
-        const polls = this.state.polls.map((poll, index) => {
-            return (
-                <Link to={`/polls/${poll.id}`} key={poll.id}>
-                    <ListItem
-                        key={poll.id}
-                        primaryText={poll.id}
-                        secondaryText={
-                            <p>
-                                { poll.question }
-                            </p>
-                        }
-                    />
-                </Link>
-            );
-        });
         return (
-            <div>
-                <List>
-                    <Subheader>Polls</Subheader>
-                    {polls}
-                </List>
+            <div style={styles.root}>
+                <GridList
+                    cellHeight={180}
+                    style={styles.gridList}
+                >
+                    {this.state.polls.map((poll) => {
+                        return (
+                            <Link to={`/polls/${poll.id}`} key={poll.id}>
+                                <GridTile
+                                    key={poll.id}
+                                    title={poll.question}
+                                    subtitle={`Posted: ${poll.createdAt}`}
+                                    style={styles.gridTile}
+                                >
+                                    { poll.question }
+                                </GridTile>
+                            </Link>
+                        );
+                    })}
+                </GridList>
             </div>
         );
     }

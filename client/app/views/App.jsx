@@ -3,11 +3,35 @@ import axios from 'axios';
 import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import { grey300 } from 'material-ui/styles/colors';
+import IconButton from 'material-ui/IconButton';
+import SvgIcon from 'material-ui/SvgIcon';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Grid, Row, Col } from 'react-flexbox-grid';
+import { Link } from 'react-router';
+import octicons from 'octicons';
 import NavBar from './Navbar/Navbar.jsx';
 
 injectTapEventPlugin();
+
+const styles = {
+    footer: {
+        background: grey300,
+        height: '56px',
+        textAlign: 'center',
+        position: 'absolute',
+        bottom: '0',
+        left: '0',
+        width: '100%',
+    },
+};
+
+function createMarkup() {
+    const icon = octicons['mark-github'].toSVG();
+    return {
+        __html: icon,
+    };
+}
 
 class App extends React.Component {
     constructor() {
@@ -48,7 +72,16 @@ class App extends React.Component {
                             userName: this.state.userName,
                         })}
                     </section>
+                    <section style={styles.footer}>
+                        <IconButton
+                            href="https://github.com/AlbertoALopez/polling"
+                        >
+                            <div
+                                dangerouslySetInnerHTML={createMarkup()} />
+                        </IconButton>
+                    </section>
                 </div>
+
             </MuiThemeProvider>
         );
     }

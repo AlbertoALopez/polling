@@ -11,7 +11,6 @@ const styles = {
     landing: {
         backgroundColor: cyan500,
         color: 'white',
-        // marginTop: '64px',
     },
 };
 
@@ -23,7 +22,9 @@ const Home = (props) => {
                     <Row>
                         <Col xs={12}>
                             <Row center="xs">
-                                <Landing />
+                                <Landing
+                                    loggedIn={props.loggedIn}
+                                />
                             </Row>
                         </Col>
                     </Row>
