@@ -42,14 +42,14 @@ class ViewPoll extends React.Component {
         e.preventDefault();
         const that = this;
         axios.put(`/api/vote/${answerId}`, {
-            // No payload
+            userName: this.props.userName,
         }).then((response) => {
-            const answers = that.state.answers.map((element, index) => {
-                if (element.id === response.data.id) {
+            const answers = that.state.answers.map((answer, index) => {
+                if (answer.id === response.data.id) {
                     return response.data;
                 }
 
-                return element;
+                return answer;
             });
 
             that.setState({
@@ -64,25 +64,31 @@ class ViewPoll extends React.Component {
         return (
             <Grid>
                 <Row >
-                    <Col xs={12}>
+                    <Col xs={12} md={6}>
+                        <VotingBox
+                            answers={this.state.answers}
+                            pollId={this.state.pollId}
+                            handleVote={this.handleVote.bind(this)}
+                            loggedIn={this.props.loggedIn}
+                        />
+                    </Col>
+                    <Col xs={12} md={6}>
                         <PollChart
                             answers={this.state.answers}
                             question={this.state.question}
                             votes={this.state.votes}
                             colors={this.state.colors}
                         />
-                        <div className="voting-container">
-                            <VotingBox
-                                answers={this.state.answers}
-                                pollId={this.state.pollId}
-                                handleVote={this.handleVote.bind(this)}
-                            />
-                        </div>
                     </Col>
                 </Row>
             </Grid>
         );
     }
 }
+
+ViewPoll.propTypes = {
+    loggedIn: React.PropTypes.bool.isRequired,
+    userName: React.PropTypes.string.isRequired,
+};
 
 export default ViewPoll;

@@ -209,8 +209,19 @@ router.put('/api/vote/:id', jsonParser, (req, res) => {
     }).then((answer) => {
         return answer.increment('votes');
     }).then((answer) => {
+        let userIdentifier;
+        if (!req.body.userName) {
+            userIdentifier = req.headers['x-forwarded-for'] ||
+            req.connection.remoteAddress ||
+            req.socket.remoteAddress ||
+            req.connection.socket.remoteAddress;
+        }
+        else {
+            userIdentifier = req.body.userName;
+        }
+        console.log(userIdentifier);
         return answer.update({
-            votedBy: sequelize.fn('array_append', sequelize.col('votedBy'), req.body.userName),
+            votedBy: sequelize.fn('array_append', sequelize.col('votedBy'), userIdentifier),
         });
     }).then((result) => {
         res.json(result);

@@ -25,7 +25,7 @@ export default class VotingBox extends React.Component {
             );
         });
         return (
-            <div>
+            <div className="voting-container">
                 <p>Vote on this poll</p>
                 <SelectField
                     value={this.state.value}
@@ -50,4 +50,5 @@ VotingBox.propTypes = {
     answers: React.PropTypes.array.isRequired,
     pollId: React.PropTypes.number.isRequired,
     handleVote: React.PropTypes.func.isRequired,
+    loggedIn: React.PropTypes.bool.isRequired,
 };
