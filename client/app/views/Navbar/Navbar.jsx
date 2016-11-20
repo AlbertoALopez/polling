@@ -7,18 +7,33 @@ import LeftDrawer from '../LeftDrawer/LeftDrawer.jsx';
 import './_Navbar.scss';
 
 
+const styles = {
+    appbar: {
+        position: 'fixed',
+        top: '0',
+        left: '0',
+    },
+    spacer: {
+        height: '64px',
+    },
+};
+
 class Navbar extends React.Component {
     handleTouchTap() {
         this.props.router.push('/');
     }
     render() {
         return (
-            <AppBar
-                onTitleTouchTap={this.handleTouchTap.bind(this)}
-                // title={<span className="navbar-title">Polling</span>}
-                iconElementLeft={<LeftDrawer />}
-                iconElementRight={<NavbarTabs loggedIn={this.props.loggedIn}/>}
-            />
+            <div>
+                <AppBar
+                    style={styles.appbar}
+                    onTitleTouchTap={this.handleTouchTap.bind(this)}
+                    iconElementLeft={<LeftDrawer />}
+                    iconElementRight={<NavbarTabs loggedIn={this.props.loggedIn} />}
+                    zIndex={0}
+                />
+                <div style={styles.spacer}></div>
+            </div>
         );
     }
 }

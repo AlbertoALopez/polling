@@ -4,6 +4,7 @@ import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import injectTapEventPlugin from 'react-tap-event-plugin';
+import { Grid, Row, Col } from 'react-flexbox-grid';
 import NavBar from './Navbar/Navbar.jsx';
 
 injectTapEventPlugin();

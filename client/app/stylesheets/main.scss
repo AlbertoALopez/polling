@@ -1,25 +1,24 @@
 @import '_reset.scss';
 
 /* Main styles */
-p {
-    font-family: 'Roboto', sans-serif;
-}
-h1, h1, h3, a {
-    font-family: 'Montserrat', sans-serif;
-}
 
-h1 {
-    font-weight: 300;
-    font-size: 30px;
+html {
+    width: 100%;
+    font-family: 'Roboto', sans-serif;
+
+    h1 {
+        font-size: 30px;
+    }
 }
 
 /* Layout styles */
 
+.app-container {
+    overflow: hidden;
+}
 
 /* Media queries */
 
 @media (max-width: 321px) {
-    h1 {
-        font-size: 17px !important;
-    }
+
 }

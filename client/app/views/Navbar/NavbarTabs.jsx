@@ -2,10 +2,15 @@ import React from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import ActionHome from 'material-ui/svg-icons/action/home';
 import LoginModal from '../Home/Login/LoginModal.jsx';
-import cyan500 from 'material-ui/styles/colors';
-import auth from '../../utils/auth.js';
 import { Link } from 'react-router';
+import auth from '../../utils/auth.js';
 
+
+const styles = {
+    icons: {
+        // color: 'white',
+    },
+};
 
 const NavbarTabs = (props) => {
     let profileButton;
@@ -13,6 +18,7 @@ const NavbarTabs = (props) => {
     if (props.loggedIn) {
         profileButton =
             <FlatButton
+                style={styles.icons}
                 className="navbar-btn"
                 label="Logout"
                 labelPosition="before"
@@ -22,6 +28,7 @@ const NavbarTabs = (props) => {
     else {
         profileButton =
             <FlatButton
+                style={styles.icons}
                 className="navbar-btn"
                 label="Login"
                 labelPosition="before"
@@ -31,7 +38,10 @@ const NavbarTabs = (props) => {
     return (
         <div>
             <Link to="/">
-                <FlatButton className="navbar-btn" label="Home" icon={<ActionHome />} />
+                <FlatButton
+                    className="navbar-btn"
+                    icon={<ActionHome style={styles.icon} />}
+                />
             </Link>
             {profileButton}
         </div>

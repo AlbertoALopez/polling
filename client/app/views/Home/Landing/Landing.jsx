@@ -10,11 +10,13 @@ import ActionDone from 'material-ui/svg-icons/action/done';
 import SocialShare from 'material-ui/svg-icons/social/share';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Login from '../Login/Login.jsx';
+import './Landing.scss';
 
 
 const styles = {
     landingContainer: {
         paddingTop: '10%',
+        fontWeight: '300',
     },
     svgIcon: {
         height: '50px',
@@ -26,7 +28,10 @@ const styles = {
         fontSize: '20px',
         display: 'block',
         position: 'relative',
-        padding: '100px'
+        padding: '100px',
+    },
+    buttons: {
+        marginTop: '10px',
     },
 };
 
@@ -37,19 +42,19 @@ const Landing = (props) => {
                 <Grid>
                     <Row center="xs">
                         <Col xs={12} md={4}>
-                            <h1>Create</h1>
+                            <h1>Create polls</h1>
                             <ContentCreate
                                 style={styles.svgIcon}
                             />
                         </Col>
                         <Col xs={12} md={4}>
-                            <h1>Vote</h1>
+                            <h1>Vote on them</h1>
                             <ActionDone
                                 style={styles.svgIcon}
                             />
                         </Col>
                         <Col xs={12} md={4}>
-                            <h1>Share</h1>
+                            <h1>Share them</h1>
                             <SocialShare
                                 style={styles.svgIcon}
                             />
@@ -60,8 +65,8 @@ const Landing = (props) => {
             <div style={styles.landingText} className="landing-text">
                 <p>Create, vote on and share polls made by you and your friends!</p>
                 <br />
-                <p>Select a poll below or login with Google to create your own.</p>
-                <Row center="xs">
+                <p>Select one below or login with Google to create your own.</p>
+                <Row style={styles.buttons} center="xs">
                     <Login
                         loggedIn={props.loggedIn}
                     />
