@@ -23,6 +23,7 @@ const styles = {
         bottom: '0',
         left: '0',
         width: '100%',
+        padding: '10px',
     },
 };
 
@@ -73,6 +74,7 @@ class App extends React.Component {
                         })}
                     </section>
                     <section style={styles.footer}>
+                        <p>See code on GitHub</p>
                         <IconButton
                             href="https://github.com/AlbertoALopez/polling"
                         >
