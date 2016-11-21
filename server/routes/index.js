@@ -34,6 +34,7 @@ passport.serializeUser((user, done) => {
     done(null, {
         userName: user.username,
         loggedIn: true,
+        id: user.id,
     });
 });
 
@@ -109,12 +110,29 @@ router.get('/logout', (req, res) => {
 
 // Get specific user
 router.get('/api/user/:id', (req, res) => {
+    let user;
     models.User.find({
         where: {
             id: req.params.id,
         },
-    }).then((user) => {
-        res.json(user);
+    }).then((queryResult) => {
+        user = queryResult;
+        return models.Poll.findAll({
+            where: {
+                UserId: req.params.id,
+            },
+            include: [
+                models.Answers,
+            ],
+        });
+    }).then((queryResult) => {
+        res.json({
+            polls: queryResult,
+            user,
+        });
+    })
+    .catch((err) => {
+        console.log(`There was an error: ${err}`);
     });
 });
 
@@ -136,6 +154,20 @@ router.get('/api/poll/:id', (req, res) => {
         include: [
             models.Answers,
         ],
+    }).then((queryResult) => {
+        res.json(queryResult);
+    })
+    .catch((err) => {
+        res.status(500).send(`There was an error: ${err}`);
+    });
+});
+
+// Get all polls associated with a specific user
+router.get('/api/poll/user/:id', (req, res) => {
+    models.Poll.find({
+        where: {
+            UserId: req.params.id,
+        },
     }).then((queryResult) => {
         res.json(queryResult);
     })

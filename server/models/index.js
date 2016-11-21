@@ -34,6 +34,7 @@ if (!global.hasOwnProperty('db')) {
 }
 
 /* Associations */
+global.db.User.hasMany(global.db.Poll, {});
 global.db.Poll.belongsTo(global.db.User, {});
 global.db.Poll.hasMany(global.db.Answers, {});
 

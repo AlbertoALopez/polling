@@ -49,12 +49,12 @@ class App extends React.Component {
                 console.log(`Error could not load user data`);
                 return;
             }
-            else {
-                this.setState({
-                    loggedIn: !!response.data.loggedIn,
-                    userName: response.data.userName,
-                });
-            }
+
+            this.setState({
+                loggedIn: !!response.data.loggedIn,
+                userName: response.data.userName,
+                id: response.data.id,
+            });
         });
     }
     render() {
@@ -71,6 +71,7 @@ class App extends React.Component {
                         {React.cloneElement(this.props.children, {
                             loggedIn: this.state.loggedIn,
                             userName: this.state.userName,
+                            id: this.state.id,
                         })}
                     </section>
                     <section style={styles.footer}>
@@ -78,12 +79,10 @@ class App extends React.Component {
                         <IconButton
                             href="https://github.com/AlbertoALopez/polling"
                         >
-                            <div
-                                dangerouslySetInnerHTML={createMarkup()} />
+                            <div dangerouslySetInnerHTML={createMarkup()}></div>
                         </IconButton>
                     </section>
                 </div>
-
             </MuiThemeProvider>
         );
     }

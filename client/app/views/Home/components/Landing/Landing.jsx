@@ -73,7 +73,7 @@ const Landing = (props) => {
                     <Link to="/polls/all">
                         <RaisedButton
                             label="See all"
-                            className="linkButton"
+                            className="profile-button"
                         />
                     </Link>
                 </Row>

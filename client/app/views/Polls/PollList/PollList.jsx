@@ -15,6 +15,8 @@ const styles = {
         display: 'flex',
         flexWrap: 'wrap',
         justifyContent: 'space-around',
+        marginLeft: '10px',
+        marginRight: '10px',
     },
     gridList: {
         width: '500px',

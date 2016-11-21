@@ -2,8 +2,8 @@
 import React from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import {cyan500} from 'material-ui/styles/colors';
-import PollList from '../Polls/PollList/PollList.jsx';
-import Landing from './Landing/Landing.jsx';
+import PollList from '../../Polls/PollList/PollList.jsx';
+import Landing from '../components/Landing/Landing.jsx';
 import './_Home.scss';
 
 

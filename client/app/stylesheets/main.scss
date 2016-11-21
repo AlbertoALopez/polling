@@ -30,9 +30,17 @@ html {
     height: 100%
 }
 .app-container {
+    background: #F5F5F5;
     overflow: hidden;
     min-height: 100%;
     position: relative;
+}
+
+.props-container {
+    // background: white;
+    width: auto;
+    min-height: auto;
+    position: relative;;
 }
 
 /* Media queries */
