@@ -19,6 +19,11 @@ const styles = {
         marginTop: '15px',
         marginBottom: '125px',
     },
+    cardError: {
+        padding: '15px',
+        marginTop: '15px',
+        height: '100px',
+    }
 };
 
 class CreatePoll extends React.Component {
@@ -126,7 +131,7 @@ class CreatePoll extends React.Component {
             <Row center="xs">
                 <Col xs={10} lg={6}>
                     {!this.props.loggedIn ? (
-                        <Card>
+                        <Card style={styles.cardError}>
                             <div>
                                 <br />
                                 <p>Please log in to create a poll.</p>
