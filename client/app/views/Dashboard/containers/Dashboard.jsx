@@ -3,6 +3,7 @@ import UserCard from '../components/UserCard/UserCard.jsx';
 import PollsCard from '../components/PollsCard/PollsCard.jsx';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import axios from 'axios';
+import { withRouter } from 'react-router';
 import './_Dashboard.scss';
 
 class Dashboard extends React.Component {
@@ -10,6 +11,7 @@ class Dashboard extends React.Component {
         id: React.PropTypes.string.isRequired,
         loggedIn: React.PropTypes.bool.isRequired,
         userName: React.PropTypes.string.isRequired,
+        router: React.PropTypes.object.isRequired,
     }
 
     constructor(props) {
@@ -24,11 +26,6 @@ class Dashboard extends React.Component {
         const that = this;
         axios.get(`/api/user/${this.props.id}`)
         .then((response) => {
-            if (!response) {
-                console.log('Could not load user info');
-                return;
-            }
-            console.log(response);
             that.setState({
                 polls: response.data.polls,
                 createdAt: response.data.user.createdAt,
@@ -37,14 +34,27 @@ class Dashboard extends React.Component {
         })
         .catch((err) => {
             console.log(`There was an error: ${err}`);
+            // Unauthenticated user or server error
+            if (err.response.status === 500) {
+                console.log('Could not load user info');
+                that.props.router.replace({
+                    pathname: '/',
+                });
+            }
         });
     }
     componentWillReceiveProps(nextProps) {
         const that = this;
         axios.get(`/api/user/${nextProps.id}`)
         .then((response) => {
-            if (!response) {
+            if (response.status === 500) {
                 console.log('Could not load user info');
+                replace({
+                    pathname: '/',
+                    state: {
+                        nextPathname: nextState.location.pathname,
+                    }
+                })
                 return;
             }
             console.log(response);
@@ -80,4 +90,4 @@ class Dashboard extends React.Component {
     }
 }
 
-export default Dashboard;
+export default withRouter(Dashboard);

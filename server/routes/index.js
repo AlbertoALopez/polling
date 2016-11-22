@@ -110,6 +110,9 @@ router.get('/logout', (req, res) => {
 
 // Get specific user
 router.get('/api/user/:id', (req, res) => {
+    if (isNaN(parseInt(req.params.id))) {
+        res.status(500).send('Invalid user id');
+    }
     let user;
     models.User.find({
         where: {
