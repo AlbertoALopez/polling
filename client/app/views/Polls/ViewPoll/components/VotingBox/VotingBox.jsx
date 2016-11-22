@@ -2,6 +2,8 @@ import React from 'react';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
+import Snackbar from 'material-ui/Snackbar';
+import './_VotingBox.scss';
 
 
 export default class VotingBox extends React.Component {
@@ -9,10 +11,23 @@ export default class VotingBox extends React.Component {
         super(props);
         this.state = {
             value: '',
+            open: false,
         };
     }
     handleChange = (event, index, value) => {
-        this.setState({ value });
+        this.setState({
+            value,
+        });
+    }
+    handleTouchTap = () => {
+        this.setState({
+            open: true,
+        });
+    }
+    handleRequestClose = () => {
+        this.setState({
+            open: false,
+        });
     }
     render() {
         const menuItems = this.props.answers.map((value, index) => {
@@ -39,7 +54,14 @@ export default class VotingBox extends React.Component {
                     primary={true}
                     onClick={(e) => {
                         this.props.handleVote(e, this.state.value);
+                        this.handleTouchTap();
                     }}
+                />
+                <Snackbar
+                    open={this.state.open}
+                    message="Vote added to total"
+                    autoHideDuration={4000}
+                    onRequestClose={this.handleRequestClose}
                 />
             </div>
         );

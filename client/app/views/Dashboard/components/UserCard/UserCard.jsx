@@ -16,13 +16,13 @@ const styles = {
         marginTop: '10px',
         marginLeft: '20px',
         marginBottom: '10px',
-        // color: 'white',
-    }
+        color: 'white',
+    },
 };
 
 class UserCard extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
     }
     render() {
         return (
@@ -36,10 +36,10 @@ class UserCard extends React.Component {
                 <CardActions>
                     <div style={styles.buttons}>
                         <Link to="/polls/createpoll">
-                            <RaisedButton primary={true} style={styles.button}>CREATE A NEW POLL</RaisedButton>
+                            <RaisedButton secondary={true} style={styles.button}>CREATE A NEW POLL</RaisedButton>
                         </Link>
                         <Link to="/polls/all">
-                            <RaisedButton primary={true} style={styles.button}>SEE ALL</RaisedButton>
+                            <RaisedButton secondary={true} style={styles.button}>SEE ALL</RaisedButton>
                         </Link>
                     </div>
                 </CardActions>`
