@@ -28,7 +28,7 @@ class Navbar extends React.Component {
                 <AppBar
                     style={styles.appbar}
                     onTitleTouchTap={this.handleTouchTap.bind(this)}
-                    iconElementLeft={<LeftDrawer />}
+                    iconElementLeft={<LeftDrawer loggedIn={this.props.loggedIn} />}
                     iconElementRight={<NavbarTabs loggedIn={this.props.loggedIn} />}
                     zIndex={0}
                 />

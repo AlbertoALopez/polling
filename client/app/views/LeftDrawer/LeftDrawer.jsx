@@ -19,6 +19,19 @@ export default class LeftDrawer extends React.Component {
         });
     }
     render() {
+        let item;
+        if (this.props.loggedIn) {
+            item =
+            <Link to="/dashboard">
+                <MenuItem onTouchTap={this.handleToggle}>My profile</MenuItem>
+            </Link>;
+        }
+        else {
+            item =
+                <Link to="/">
+                    <MenuItem onTouchTap={this.handleToggle}>Home</MenuItem>
+                </Link>;
+        }
         return (
             <div>
                 <IconButton
@@ -31,9 +44,7 @@ export default class LeftDrawer extends React.Component {
                     docked={false}
                     onRequestChange={this.handleToggle.bind(this)}
                 >
-                    <Link to="/dashboard">
-                        <MenuItem onTouchTap={this.handleToggle}>My profile</MenuItem>
-                    </Link>
+                    { item }
                     <Link to="/polls/createpoll">
                         <MenuItem onTouchTap={this.handleToggle}>Create new</MenuItem>
                     </Link>
