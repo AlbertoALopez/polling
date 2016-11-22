@@ -27,6 +27,7 @@ If you have the heroku CLI, you can run `heroku local` to run a local version of
 
 ## TODO
 
+* Make dashboard a protected route
 * Add code splitting/tree shaking with webpack2 (update to webpack2)
 * Make server requests on changes from the dashboard
 * Add  ability to add answers to questions on the dashboard
