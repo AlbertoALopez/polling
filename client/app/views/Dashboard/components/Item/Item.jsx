@@ -17,6 +17,7 @@ class Item extends React.Component {
         answer: React.PropTypes.array.isRequired,
         pollId: React.PropTypes.string.isRequired,
         updateAnswer: React.PropTypes.func.isRequired,
+        deleteAnswer: React.PropTypes.func.isRequired,
     }
     constructor(props) {
         super(props);
@@ -76,6 +77,7 @@ class Item extends React.Component {
         else {
             item =
                 <ListItem
+                    insetChildren={true}
                     primaryText={this.props.answer.answer}
                     key={this.props.answer.id}
                     secondaryText={`Votes: ${this.props.answer.votes}`}
@@ -85,11 +87,13 @@ class Item extends React.Component {
                                 onTouchTap={() => this.handleClick()}
                             />
                             <Delete
-                                onTouchTap={() => this.props.deleteAnswer(this.props.index)}
+                                onTouchTap={() => this.props.deleteAnswer(
+                                    this.props.pollId,
+                                    this.props.answer.id)}
                             />
                         </div>
                     }
-                />
+                />;
         }
         return (
             <div>

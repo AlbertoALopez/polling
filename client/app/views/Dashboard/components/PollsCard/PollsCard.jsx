@@ -30,12 +30,11 @@ class PollsCard extends React.Component {
             polls: nextProps.polls,
         });
     }
-    handleQuestionChange(pollId, newPollQuestion) {
+    updatePoll(pollId, newPollQuestion) {
         const polls = this.state.polls.map((poll, index) => {
-            if (index.id === pollId) {
+            if (poll.id === pollId) {
                 poll.question = newPollQuestion;
             }
-
             return poll;
         });
 
@@ -59,21 +58,33 @@ class PollsCard extends React.Component {
             polls,
         });
     }
-    handleEditTouchTap() {
-        console.log('mewo');
+    deletePoll(pollId) {
+        const polls = this.state.polls.filter((poll, index) => {
+            return poll.id !== pollId;
+        });
+        this.setState({
+            polls,
+        });
     }
-    handleDeleteTouchTap() {
-        console.log('delte');
+    deleteAnswer(pollId, answerId) {
+        const polls = this.state.polls.map((poll, index) => {
+            if (poll.id === pollId) {
+                poll.Answers = poll.Answers.filter((answer, index) => {
+                    return answer.id !== answerId;
+                });
+            }
+            return poll;
+        });
+        this.setState({
+            polls,
+        });
     }
     render() {
         return (
             <Card style={styles.card}>
-                {/* <CardHeader
-                    title="Your Polls"
-                /> */}
                 <CardTitle title="Your polls" />
                 <CardText>
-                    <p>Review all your polls here.
+                    <p>Review your polls here.
                      Click on one to expand and see its related questions.
                      </p>
                     <br />
@@ -86,16 +97,17 @@ class PollsCard extends React.Component {
                                         answer={answer}
                                         pollId={poll.id}
                                         updateAnswer={this.updateAnswer.bind(this)}
+                                        deleteAnswer={this.deleteAnswer.bind(this)}
                                     />
                                 );
                             });
                             return (
                                 <QuestionItem
-                                    nestedItems={answers}
+                                    answers={answers}
                                     id={poll.id}
                                     question={poll.question}
-                                    handleEditTouchTap={this.handleEditTouchTap.bind(this)}
-                                    handleDeleteTouchTap={this.handleDeleteTouchTap.bind(this)}
+                                    updatePoll={this.updatePoll.bind(this)}
+                                    deletePoll={this.deletePoll.bind(this)}
                                 />
                             );
                         })}

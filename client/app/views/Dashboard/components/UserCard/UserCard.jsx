@@ -1,12 +1,23 @@
 import React from 'react';
 import { Card, CardActions, CardHeader, CardTitle, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
+import { Link } from 'react-router';
 
 const styles = {
     card: {
         textAlign: 'left',
         marginTop: '30px',
     },
+    buttons: {
+        marginLeft: '30px',
+        fontWeight: '400',
+    },
+    button: {
+        marginTop: '10px',
+        marginLeft: '20px',
+        marginBottom: '10px',
+        // color: 'white',
+    }
 };
 
 class UserCard extends React.Component {
@@ -22,11 +33,16 @@ class UserCard extends React.Component {
                                Last updated: ${new Date(this.props.updatedAt).toDateString()}`}
                     avatar=""
                 />
-                <CardTitle title="" subtitle={``} />
-                <CardText>
-                    <RaisedButton>Meow</RaisedButton>
-                    <RaisedButton>Meow</RaisedButton>
-                </CardText>
+                <CardActions>
+                    <div style={styles.buttons}>
+                        <Link to="/polls/createpoll">
+                            <RaisedButton primary={true} style={styles.button}>CREATE A NEW POLL</RaisedButton>
+                        </Link>
+                        <Link to="/polls/all">
+                            <RaisedButton primary={true} style={styles.button}>SEE ALL</RaisedButton>
+                        </Link>
+                    </div>
+                </CardActions>`
             </Card>
         );
     }
