@@ -71,7 +71,7 @@ else {
 
 // Sync postgres db models and then start server
 db.sequelize.sync({
-    // 'force': true
+    'force': true
 })
 .then(() => {
     app.listen(port, '0.0.0.0', (err) => {

@@ -191,6 +191,7 @@ router.post('/api/createpoll', jsonParser, (req, res) => {
             return models.Poll.create({
                 question: req.body.question,
                 UserId: user.id,
+                votes: 0,
             });
         }).then((poll) => {
             pollId = poll.id;
@@ -231,19 +232,22 @@ router.put('/api/updatepoll', (req, res) => {
         });
     }
     else {
-        res.status(401).send('You must be logged in to vote');
+        res.status(401).send('You must be logged in');
     }
 });
 
 // Update answer with new vote
 router.put('/api/vote/:id', jsonParser, (req, res) => {
+    let answers;
     models.Answers.find({
         where: {
             id: req.params.id,
         },
-    }).then((answer) => {
-        return answer.increment('votes');
-    }).then((answer) => {
+    })
+    .then((result) => {
+        return result.increment('votes');
+    })
+    .then((result) => {
         let userIdentifier;
         if (!req.body.userName) {
             userIdentifier = req.headers['x-forwarded-for'] ||
@@ -254,12 +258,23 @@ router.put('/api/vote/:id', jsonParser, (req, res) => {
         else {
             userIdentifier = req.body.userName;
         }
-        console.log(userIdentifier);
-        return answer.update({
+        return result.update({
             votedBy: sequelize.fn('array_append', sequelize.col('votedBy'), userIdentifier),
         });
-    }).then((result) => {
-        res.json(result);
+    })
+    .then((result) => {
+        answers = result;
+        return models.Poll.find({
+            where: {
+                id: result.PollId,
+            },
+        });
+    })
+    .then((result) => {
+        return result.increment('votes');
+    })
+    .then((result) => {
+        res.json(answers);
     })
     .catch((err) => {
         res.status(500).send(`Error updating: ${err}`);
