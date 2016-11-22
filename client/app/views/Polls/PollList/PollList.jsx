@@ -30,6 +30,7 @@ const styles = {
     gridTitle: {
         paddingTop: '20px',
         wordBreak: 'break-all',
+        fontWeight: '500',
     },
 };
 
