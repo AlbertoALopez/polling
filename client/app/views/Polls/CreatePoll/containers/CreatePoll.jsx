@@ -1,6 +1,7 @@
 /* View for poll creation */
 import React from 'react';
 import TextField from 'material-ui/TextField';
+import Card from 'material-ui/Card';
 import { Row, Col } from 'react-flexbox-grid';
 import validate from '../../../../utils/validate.js';
 import AnswersList from '../components/AnswersList/AnswersList.jsx';
@@ -8,6 +9,17 @@ import SubmitDialog from '../components/SubmitDialog/SubmitDialog.jsx';
 import AnswerSnackbar from '../components/AnswerSnackbar/AnswerSnackbar.jsx';
 import './_CreatePoll.scss';
 
+const styles = {
+    cardTop: {
+        padding: '15px',
+        marginTop: '15px',
+    },
+    cardBottom: {
+        padding: '15px',
+        marginTop: '15px',
+        marginBottom: '125px',
+    },
+};
 
 class CreatePoll extends React.Component {
     constructor(props) {
@@ -114,54 +126,61 @@ class CreatePoll extends React.Component {
             <Row center="xs">
                 <Col xs={10} lg={6}>
                     {!this.props.loggedIn ? (
-                        <div>
-                            <br />
-                            <p>Please log in to create a poll.</p>
-                        </div>
-                    ) : (
-                        <div>
-                            <div className="form">
-                                <div className="poll-description">
-                                    <p>Enter your question and answers here. Please
-                                    include at least one answer.</p>
-                                </div>
-                                <form
-                                    className="text-field"
-                                    onSubmit={(e) => e.preventDefault()}
-                                >
-                                    <TextField
-                                        id="question-field-controlled"
-                                        value={this.state.questionValue}
-                                        onChange={this.handleQuestionChange}
-                                        errorText={this.state.questionErrorMsg}
-                                        hintText="Question"
-                                        fullWidth={true}
-                                    />
-                                    <TextField
-                                        id="answer-field-controlled"
-                                        value={this.state.answerValue}
-                                        onChange={this.handleAnswerChange}
-                                        errorText={this.state.answerErrorMsg}
-                                        hintText="Answer"
-                                        fullWidth={true}
-                                        multiLine={true}
-                                    />
-                                    <AnswerSnackbar
-                                        addAnswer={this.addAnswer.bind(this)}
-                                        actionButtonDisabled={this.state.actionButtonDisabled}
-                                    />
-                                    <SubmitDialog
-                                        answers={this.state.answers}
-                                        question={this.state.questionValue}
-                                        userName={this.props.userName}
-                                    />
-                                </form>
+                        <Card>
+                            <div>
+                                <br />
+                                <p>Please log in to create a poll.</p>
                             </div>
-                            <AnswersList
-                                answers={this.state.answers}
-                                updateAnswer={this.updateAnswer.bind(this)}
-                                deleteAnswer={this.deleteAnswer.bind(this)}
-                            />
+                        </Card>
+                    ) : (
+
+                        <div>
+                            <Card style={styles.cardTop}>
+                                <div className="form">
+                                    <div className="poll-description">
+                                        <p>Enter your question and answers here. Please
+                                        include at least one answer.</p>
+                                    </div>
+                                    <form
+                                        className="text-field"
+                                        onSubmit={(e) => e.preventDefault()}
+                                    >
+                                        <TextField
+                                            id="question-field-controlled"
+                                            value={this.state.questionValue}
+                                            onChange={this.handleQuestionChange}
+                                            errorText={this.state.questionErrorMsg}
+                                            hintText="Question"
+                                            fullWidth={true}
+                                        />
+                                        <TextField
+                                            id="answer-field-controlled"
+                                            value={this.state.answerValue}
+                                            onChange={this.handleAnswerChange}
+                                            errorText={this.state.answerErrorMsg}
+                                            hintText="Answer"
+                                            fullWidth={true}
+                                            multiLine={true}
+                                        />
+                                        <AnswerSnackbar
+                                            addAnswer={this.addAnswer.bind(this)}
+                                            actionButtonDisabled={this.state.actionButtonDisabled}
+                                        />
+                                        <SubmitDialog
+                                            answers={this.state.answers}
+                                            question={this.state.questionValue}
+                                            userName={this.props.userName}
+                                        />
+                                    </form>
+                                </div>
+                            </Card>
+                            <Card style={styles.cardBottom}>
+                                <AnswersList
+                                    answers={this.state.answers}
+                                    updateAnswer={this.updateAnswer.bind(this)}
+                                    deleteAnswer={this.deleteAnswer.bind(this)}
+                                />
+                            </Card>
                         </div>
                     )}
                 </Col>

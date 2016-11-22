@@ -1,11 +1,24 @@
 /* View for an individual poll  */
 import React from 'react';
 import { Grid, Row, Col } from 'react-flexbox-grid';
+import Card from 'material-ui/Card';
 import PollChart from '../components/PollChart/PollChart.jsx';
 import VotingBox from '../components/VotingBox/VotingBox.jsx';
 import axios from 'axios';
 import './_ViewPoll.scss';
 import hex from '../../../../utils/hex';
+
+const styles = {
+    cardTop: {
+        padding: '15px',
+        marginTop: '15px',
+    },
+    cardBottom: {
+        padding: '15px',
+        marginTop: '15px',
+        marginBottom: '100px',
+    },
+};
 
 class ViewPoll extends React.Component {
     constructor() {
@@ -65,20 +78,24 @@ class ViewPoll extends React.Component {
             <Grid>
                 <Row >
                     <Col xs={12} md={6}>
-                        <VotingBox
-                            answers={this.state.answers}
-                            pollId={this.state.pollId}
-                            handleVote={this.handleVote.bind(this)}
-                            loggedIn={this.props.loggedIn}
-                        />
+                        <Card style={styles.cardTop}>
+                            <VotingBox
+                                answers={this.state.answers}
+                                pollId={this.state.pollId}
+                                handleVote={this.handleVote.bind(this)}
+                                loggedIn={this.props.loggedIn}
+                            />
+                        </Card>
                     </Col>
                     <Col xs={12} md={6}>
-                        <PollChart
-                            answers={this.state.answers}
-                            question={this.state.question}
-                            votes={this.state.votes}
-                            colors={this.state.colors}
-                        />
+                        <Card style={styles.cardBottom}>
+                            <PollChart
+                                answers={this.state.answers}
+                                question={this.state.question}
+                                votes={this.state.votes}
+                                colors={this.state.colors}
+                            />
+                        </Card>
                     </Col>
                 </Row>
             </Grid>
