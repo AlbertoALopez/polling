@@ -3,6 +3,7 @@ import React from 'react';
 import Drawer from 'material-ui/Drawer'
 import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
+import { Link } from 'react-router';
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu';
 
 export default class LeftDrawer extends React.Component {
@@ -19,16 +20,26 @@ export default class LeftDrawer extends React.Component {
     }
     render() {
         return (
-            <div><IconButton
-                    onTouchTap={this.handleToggle}>
+            <div>
+                <IconButton
+                    onTouchTap={this.handleToggle}
+                >
                     <NavigationMenu />
                 </IconButton>
                 <Drawer
                     open={this.state.open}
                     docked={false}
-                    onRequestChange={this.handleToggle.bind(this)}>
-                    <MenuItem>Menu Item</MenuItem>
-                    <MenuItem>Menu Item</MenuItem>
+                    onRequestChange={this.handleToggle.bind(this)}
+                >
+                    <Link to="/dashboard">
+                        <MenuItem onTouchTap={this.handleToggle}>My profile</MenuItem>
+                    </Link>
+                    <Link to="/polls/createpoll">
+                        <MenuItem onTouchTap={this.handleToggle}>Create new</MenuItem>
+                    </Link>
+                    <Link to="/polls/all">
+                        <MenuItem onTouchTap={this.handleToggle}>See all</MenuItem>
+                    </Link>
                 </Drawer>
             </div>
         );

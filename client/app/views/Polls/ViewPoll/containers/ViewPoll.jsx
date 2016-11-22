@@ -76,7 +76,7 @@ class ViewPoll extends React.Component {
     render() {
         return (
             <Grid>
-                <Row >
+                <Row>
                     <Col xs={12} md={6}>
                         <Card style={styles.cardTop}>
                             <VotingBox
