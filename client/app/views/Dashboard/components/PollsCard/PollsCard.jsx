@@ -1,14 +1,10 @@
 import React from 'react';
 import { Card, CardActions, CardHeader, CardTitle, CardText } from 'material-ui/Card';
-import { List, ListItem } from 'material-ui/List';
+import { List } from 'material-ui/List';
 import RaisedButton from 'material-ui/RaisedButton';
-import ContentInbox from 'material-ui/svg-icons/content/inbox';
-import ActionGrade from 'material-ui/svg-icons/action/grade';
-import ContentSend from 'material-ui/svg-icons/content/send';
-import ContentDrafts from 'material-ui/svg-icons/content/drafts';
 import Divider from 'material-ui/Divider';
-import ActionInfo from 'material-ui/svg-icons/action/info';
 import { Row } from 'react-flexbox-grid';
+import QuestionItem from '../QuestionItem/QuestionItem.jsx';
 import Item from '../Item/Item.jsx';
 import './_PollsCard.scss';
 
@@ -63,6 +59,12 @@ class PollsCard extends React.Component {
             polls,
         });
     }
+    handleEditTouchTap() {
+        console.log('mewo');
+    }
+    handleDeleteTouchTap() {
+        console.log('delte');
+    }
     render() {
         return (
             <Card style={styles.card}>
@@ -88,24 +90,13 @@ class PollsCard extends React.Component {
                                 );
                             });
                             return (
-                                <div>
-                                    <ListItem
-                                        primaryText={poll.question}
-                                        // secondaryText={
-                                        //     `Created at: ${new Date(poll.createdAt).toDateString()}
-                                        //     Last updated: ${new Date(poll.updatedAt).toDateString()}`
-                                        // }
-                                        key={poll.id}
-                                        nestedItems={[
-                                            answers,
-                                                // <div className="listitem-buttons">
-                                                //     <RaisedButton>Save changes</RaisedButton>
-                                                // </div>
-                                        ]}
-                                    >
-                                    </ListItem>
-                                    <Divider />
-                                </div>
+                                <QuestionItem
+                                    nestedItems={answers}
+                                    id={poll.id}
+                                    question={poll.question}
+                                    handleEditTouchTap={this.handleEditTouchTap.bind(this)}
+                                    handleDeleteTouchTap={this.handleDeleteTouchTap.bind(this)}
+                                />
                             );
                         })}
                     </List>
